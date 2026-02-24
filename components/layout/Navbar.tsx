@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-// Updated to match our new section IDs
 const navLinks = [
   { name: "How It Works", href: "#how-it-works" },
   { name: "Economics", href: "#economics" },
@@ -17,19 +16,40 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Handle scroll effect for glassmorphism
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // --- BULLETPROOF SMOOTH SCROLL HANDLER ---
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If it's a hash link on the current page
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const elem = document.getElementById(targetId);
+      
+      if (elem) {
+        // 80px offset ensures the sticky navbar doesn't cover the section title
+        const offset = 80; 
+        const elementPosition = elem.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+  
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+      // Always close mobile menu on click
+      setIsMobileMenuOpen(false); 
+    }
+  };
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${
           isScrolled
             ? "bg-white/90 backdrop-blur-md border-gray-200 shadow-sm py-4"
             : "bg-transparent border-transparent py-6"
@@ -51,26 +71,27 @@ export default function Navbar() {
           {/* DESKTOP NAVIGATION */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-bold text-slate hover:text-teal transition-colors relative group tracking-wide"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-sm font-bold text-slate hover:text-teal transition-colors relative group tracking-wide cursor-pointer"
               >
                 {link.name}
-                {/* Subtle underline animation on hover */}
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-teal transition-all duration-300 group-hover:w-full rounded-full"></span>
-              </Link>
+              </a>
             ))}
           </nav>
 
           {/* DESKTOP CTA */}
           <div className="hidden md:block">
-            <Link
+            <a
               href="#contact"
-              className="inline-flex items-center px-6 py-2.5 bg-teal text-white text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,165,168,0.2)] hover:shadow-[0_8px_20px_rgba(0,165,168,0.3)]"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="inline-flex items-center px-6 py-2.5 bg-teal text-white text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,165,168,0.2)] hover:shadow-[0_8px_20px_rgba(0,165,168,0.3)] cursor-pointer"
             >
               Book Demo
-            </Link>
+            </a>
           </div>
 
           {/* MOBILE MENU TOGGLE */}
@@ -84,7 +105,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* MOBILE MENU (Framer Motion) */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -96,23 +117,23 @@ export default function Navbar() {
           >
             <div className="px-6 py-8 flex flex-col space-y-6">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-navy font-heading font-bold text-2xl hover:text-teal transition-colors"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block text-navy font-heading font-bold text-2xl hover:text-teal transition-colors cursor-pointer"
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
               <div className="pt-8 border-t border-gray-100">
-                <Link
+                <a
                   href="#contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full text-center px-6 py-4 bg-teal text-white font-bold text-lg rounded-xl shadow-md"
+                  onClick={(e) => handleNavClick(e, "#contact")}
+                  className="block w-full text-center px-6 py-4 bg-teal text-white font-bold text-lg rounded-xl shadow-md cursor-pointer"
                 >
                   Book a Demo
-                </Link>
+                </a>
               </div>
             </div>
           </motion.div>
