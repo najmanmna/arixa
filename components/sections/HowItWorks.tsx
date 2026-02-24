@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue, AnimatePresence } from "framer-motion";
-import { Activity, Stethoscope, ShieldCheck, ArrowRight, Clock, CheckCircle2, FileText, CreditCard, Syringe, ClipboardList, LayoutDashboard } from "lucide-react";
+import { Activity, Stethoscope, ShieldCheck, Clock, CheckCircle2, FileText, CreditCard, Syringe, ClipboardList, LayoutDashboard } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 
 const workflowSteps = [
@@ -111,10 +111,10 @@ export default function HowItWorks() {
             transition={{ delay: 0.1 }}
             className="font-heading text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-[#0B1D3A] leading-[1.1] tracking-tight mb-5"
           >
-            Three Layers.{" "}
-            <span className="relative inline-block">
+            Three Layers. One Platform.{" "}
+            <span className="relative inline-block mt-2 sm:mt-0">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal via-[#00C8CB] to-teal-light">
-                One Seamless Platform.
+                Zero Chaos.
               </span>
               <motion.span
                 initial={{ scaleX: 0 }}
@@ -133,7 +133,7 @@ export default function HowItWorks() {
             transition={{ delay: 0.2 }}
             className="text-slate-500 text-lg leading-relaxed"
           >
-            Every touchpoint — patient, prescriber, compliance — unified in one governed platform.
+            Every touchpoint — patient, prescriber, compliance — unified in one governed architecture.
           </motion.p>
         </div>
 
@@ -164,13 +164,13 @@ export default function HowItWorks() {
                 <Activity className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-heading text-xl font-bold text-[#0B1D3A] leading-none">Patient Workflow</h3>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-0.5">End-to-end digital journey</p>
+                <h3 className="font-heading text-xl font-bold text-[#0B1D3A] leading-tight">We handle everything the patient sees</h3>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Layer 1: Patient Journey</p>
               </div>
             </div>
 
-            <p className="text-slate-500 leading-relaxed mb-8 max-w-xl relative z-10 text-[0.9rem]">
-              Takes a patient from "I want treatment" through eligibility screening, MHRA-compliant assessments, API-integrated blood diagnostics, consent capture, and checkout — one seamless digital journey.
+            <p className="text-slate-500 leading-relaxed mb-8 max-w-xl relative z-10 text-[0.95rem]">
+              From "I want to lose weight" to completed checkout. Eligibility screening, MHRA-compliant health assessment, blood test ordering via London Medical Laboratory, consent capture, and payment — all in one seamless digital flow. <span className="font-semibold text-navy">The patient never leaves your brand.</span>
             </p>
 
             {/* Animated pipeline */}
@@ -218,14 +218,10 @@ export default function HowItWorks() {
                   );
                 })}
               </div>
-
-              <p className="text-[10px] text-slate-300 font-medium mt-4 text-right hidden sm:block">
-                {isRunning ? "Click to pause" : "Click to resume"}
-              </p>
             </div>
           </motion.div>
 
-          {/* ── CARD 2: Prescriber Decision ── */}
+          {/* ── CARD 2: Prescriber Decision (Kept dark for stark visual contrast) ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -253,19 +249,19 @@ export default function HowItWorks() {
                   <Stethoscope className="w-5 h-5 text-[#00D4D8]" />
                 </div>
                 <div>
-                  <h3 className="font-heading text-xl font-bold text-white leading-none">Prescriber Decision</h3>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Structured clinical review</p>
+                  <h3 className="font-heading text-xl font-bold text-white leading-tight">Your clinician reviews in 2 mins, not 20</h3>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">Layer 2: Prescriber Decision</p>
                 </div>
               </div>
 
-              <p className="text-slate-400 text-[0.9rem] leading-relaxed mb-8 flex-grow">
-                Compresses patient data into a structured summary so a prescriber can safely approve or decline in ~2 minutes.
+              <p className="text-slate-400 text-[0.95rem] leading-relaxed mb-8 flex-grow">
+                We compress every data point — health assessment, bloods, medical history, contraindications — into a single clinical summary. Your prescriber opens it, reviews it, and approves or declines. That’s it.
               </p>
 
               {/* Comparison bars */}
               <div className="mt-auto bg-white/5 border border-white/10 rounded-2xl p-5 space-y-5 backdrop-blur-sm">
-                <TimingBar label="Manual Review" value={18} max={18} color="rgba(255,255,255,0.2)" delay={0.3} />
-                <TimingBar label="ARIXA Review" value={2} max={18} color="#00D4D8" delay={0.5} />
+                <TimingBar label="Manual Review" value={20} max={20} color="rgba(255,255,255,0.2)" delay={0.3} />
+                <TimingBar label="ARIXA Review" value={2} max={20} color="#00D4D8" delay={0.5} />
 
                 <div className="pt-2 border-t border-white/10 flex items-center justify-between">
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Time saved</span>
@@ -278,7 +274,7 @@ export default function HowItWorks() {
                       transition={{ delay: 0.9 }}
                       className="text-xl font-heading font-extrabold text-white tracking-tight"
                     >
-                      ~16 min
+                      ~18 min
                     </motion.span>
                   </div>
                 </div>
@@ -311,12 +307,12 @@ export default function HowItWorks() {
                   <ShieldCheck className="w-5 h-5 text-[#0B1D3A]" />
                 </div>
                 <div>
-                  <h3 className="font-heading text-xl font-bold text-[#0B1D3A] leading-none">Governance Backbone</h3>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-0.5">Inspection-ready from day one</p>
+                  <h3 className="font-heading text-xl font-bold text-[#0B1D3A] leading-tight">You’re inspection-ready. Every single day.</h3>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Layer 3: Governance Backbone</p>
                 </div>
               </div>
-              <p className="text-slate-500 text-[0.9rem] leading-relaxed max-w-md">
-                Every action timestamped, every protocol NICE/MHRA-aligned, every record audit-ready. Full regulatory alignment across all UK healthcare standards.
+              <p className="text-slate-500 text-[0.95rem] leading-relaxed max-w-2xl">
+                Every action timestamped. Every protocol NICE and MHRA-aligned. Every record audit-ready. GPhC, CQC, MHRA, and UK GDPR compliance runs silently underneath everything. No manual compliance work. No last-minute scrambles before inspections.
               </p>
             </div>
 

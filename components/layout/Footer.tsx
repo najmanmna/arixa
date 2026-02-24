@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, MapPin, Linkedin, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -21,7 +21,7 @@ export default function Footer() {
               <span className="text-teal-light text-[10px] font-bold tracking-[0.3em] ml-1 mt-1">HEALTH</span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed font-light mb-8">
-              The governance infrastructure for modern healthcare. Powering clinical services with science, safety, and scale.
+              The governance infrastructure for UK pharmacies and clinics. Scale your GLP-1 weight management services safely and profitably.
             </p>
             <div className="flex gap-4">
               <Link href="#" className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-teal/50 transition-all">
@@ -45,8 +45,14 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#platform" className="text-slate-400 text-sm hover:text-teal-light transition-colors flex items-center group/link">
-                    Interactive Demo
+                  <Link href="#economics" className="text-slate-400 text-sm hover:text-teal-light transition-colors flex items-center group/link">
+                    Revenue Calculator
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all" />
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/clinical-intelligence" className="text-slate-400 text-sm hover:text-teal-light transition-colors flex items-center group/link">
+                    Clinical Intelligence
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all" />
                   </Link>
                 </li>
@@ -57,13 +63,13 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <Link href="#about" className="text-slate-400 text-sm hover:text-teal-light transition-colors flex items-center group/link">
-                    Our Team
+                    Team & Advisors
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all" />
                   </Link>
                 </li>
                 <li>
                   <Link href="#contact" className="text-slate-400 text-sm hover:text-teal-light transition-colors flex items-center group/link">
-                    Contact
+                    Book a Demo
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-1 transition-all" />
                   </Link>
                 </li>

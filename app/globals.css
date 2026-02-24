@@ -6,23 +6,30 @@
   ========================================
 */
 @theme {
-  /* Brand Colors */
-  --color-navy: #0B1D3A;          /* Core Navy */
+  /* Brand Colors - Adjusted for lighter, approachable SaaS feel */
+  --color-navy: #0B1D3A;          /* Core Navy (Kept for high-contrast text and footers) */
   --color-navy-light: #0F2E5C;    /* Gradients / Hover states */
   --color-navy-dark: #020617;     /* Deep contrast */
 
   --color-teal: #00A5A8;          /* Primary Action / Accents */
   --color-teal-light: #00C9B7;    /* Glows / Highlights */
-  --color-teal-subtle: #E6F7F7;   /* Soft background washes */
+  --color-teal-subtle: #E6F7F7;   /* Soft background washes / Tints */
 
   --color-slate: #334155;         /* Body Text */
-  --color-slate-light: #94A3B8;   /* Warm Grey / Secondary text */
+  --color-slate-light: #64748B;   /* Secondary text */
+
+  /* NEW: Warm Accents & Soft Backgrounds */
+  --color-coral-soft: #FF8A65;    /* Warm callout accent */
+  --color-amber-light: #FFD54F;   /* Warm highlight accent */
+  --color-off-white: #FAFAFA;     /* Soft background alternative */
+  --color-gray-50: #F8FAFC;       /* Clean SaaS background */
 
   /* Typography */
   --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-source), ui-sans-serif, system-ui, sans-serif;
 
   /* Custom Gradients */
+  --background-image-gradient-light: linear-gradient(135deg, #FAFAFA 0%, #E6F7F7 100%);
   --background-image-gradient-navy: linear-gradient(135deg, #0B1D3A 0%, #122B55 50%, #0B1D3A 100%);
 
   --animate-shimmer: shimmer 2s infinite linear;
@@ -41,8 +48,8 @@
   }
 
   body {
-    /* Apply base font and text colors globally */
-    @apply font-body text-slate bg-white antialiased;
+    /* Set default background to off-white for a breathable SaaS feel */
+    @apply font-body text-slate bg-off-white antialiased;
   }
 
   /* Force headings to use the Inter font and Navy color by default */
@@ -59,7 +66,8 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal to-teal-light;
   }
-
   
+  .bg-glass {
+    @apply bg-white/70 backdrop-blur-lg border border-white/20;
+  }
 }
-

@@ -1,0 +1,153 @@
+"use client";
+
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { Activity, ShieldCheck, TrendingDown, Users } from "lucide-react";
+
+const phases = [
+  {
+    title: "Phase 1: Pre-Taper Education",
+    months: "Months 9–10",
+    description: "Nutritional planning, behavioural tools, and expectation setting before the patient begins stepping down.",
+  },
+  {
+    title: "Phase 2: Structured Taper",
+    months: "Months 11–12",
+    description: "Gradual dose reduction with weekly check-ins via the ARIXA app. Symptom monitoring and clinical support.",
+  },
+  {
+    title: "Phase 3: Maintenance Support",
+    months: "Month 13+",
+    description: "Follow-up at 3, 6, and 12 months. Re-engagement pathways if needed. The patient is never just left to figure it out.",
+  }
+];
+
+export default function ReboundPrevention() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  return (
+    <section id="rebound-prevention" className="py-24 px-6 lg:px-8 bg-white relative overflow-hidden">
+      
+      {/* Background Graphic */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-teal-subtle/50 to-transparent rounded-bl-[100px] pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-16 items-center">
+        
+        {/* LEFT COLUMN: The Hook */}
+        <div className="w-full lg:w-5/12">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 mb-6"
+          >
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="text-red-600 text-[10px] font-bold tracking-widest uppercase">The Industry Secret</span>
+          </motion.div>
+
+          <motion.h2 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="font-heading text-4xl md:text-5xl font-extrabold text-navy tracking-tight mb-6 leading-tight"
+          >
+            70% of Patients Regain the Weight. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-light">Ours Don’t.</span>
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-slate-light text-lg leading-relaxed mb-8"
+          >
+            Most providers abandon patients when treatment ends. ARIXA includes Dr. Neesha Patel’s evidence-based rebound prevention programme — the reason we hit 95% patient retention.
+          </motion.p>
+
+          {/* Stats Bar */}
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="grid grid-cols-2 gap-4"
+          >
+            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-teal-subtle flex items-center justify-center">
+                <Users className="w-5 h-5 text-teal" />
+              </div>
+              <div>
+                <div className="text-xl font-heading font-extrabold text-navy">95%</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Patient Retention</div>
+              </div>
+            </div>
+            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
+                <TrendingDown className="w-5 h-5 text-emerald-500" />
+              </div>
+              <div>
+                <div className="text-xl font-heading font-extrabold text-navy">70%</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Less Weight Regain</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* RIGHT COLUMN: The 3-Phase Timeline */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="w-full lg:w-7/12 bg-gray-50 rounded-3xl p-8 lg:p-12 border border-gray-200 relative"
+        >
+          {/* Vertical Track Line */}
+          <div className="absolute left-[51px] lg:left-[67px] top-12 bottom-12 w-px bg-gray-200" />
+
+          <div className="space-y-10 relative z-10">
+            {phases.map((phase, idx) => (
+              <motion.div key={idx} variants={itemVariants} className="flex gap-6 group">
+                {/* Node */}
+                <div className="flex-shrink-0 relative">
+                  <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center group-hover:border-teal group-hover:shadow-[0_0_15px_rgba(0,165,168,0.3)] transition-all duration-300">
+                     <span className="font-heading font-bold text-navy group-hover:text-teal transition-colors">0{idx + 1}</span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="pt-2">
+                  <div className="flex items-center gap-3 mb-1.5">
+                    <h3 className="font-heading font-bold text-xl text-navy">{phase.title}</h3>
+                    <span className="px-2.5 py-1 rounded-md bg-white border border-gray-200 text-[10px] font-bold text-slate-500 uppercase tracking-wider shadow-sm">
+                      {phase.months}
+                    </span>
+                  </div>
+                  <p className="text-slate-light text-sm leading-relaxed max-w-md">
+                    {phase.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Bottom badge */}
+          <motion.div variants={itemVariants} className="mt-10 pt-6 border-t border-gray-200 flex items-center gap-3">
+             <ShieldCheck className="w-5 h-5 text-teal" />
+             <span className="text-sm font-semibold text-slate">Designed by Dr. Neesha Patel, Clinical Psychologist (HCPC)</span>
+          </motion.div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
