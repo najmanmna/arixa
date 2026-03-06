@@ -7,9 +7,9 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "How It Works", href: "#how-it-works" },
-  { name: "Economics", href: "#economics" },
-  { name: "Clinical", href: "#diagnostics" },
-  { name: "Team", href: "#about" },
+  { name: "Revenue", href: "#economics" },
+  { name: "Dashboard", href: "#diagnostics" },
+  { name: "Leadership", href: "#about" },
 ];
 
 export default function Navbar() {
@@ -61,7 +61,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 group relative z-50">
             <span className="inline-block w-4 h-4 bg-teal rounded-sm transition-transform group-hover:rotate-45 duration-300"></span>
             <span className="font-heading font-extrabold text-2xl tracking-tight text-navy transition-colors duration-300">
-              ARIXA
+              Xflow
             </span>
             <span className="text-[10px] font-bold tracking-[0.2em] ml-1 mt-1 text-slate-light transition-colors duration-300">
               HEALTH
@@ -88,7 +88,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="inline-flex items-center px-6 py-2.5 bg-teal text-white text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,165,168,0.2)] hover:shadow-[0_8px_20px_rgba(0,165,168,0.3)] cursor-pointer"
+              className="inline-flex items-center px-6 py-2.5 bg-teal text-navy text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,165,168,0.2)] hover:shadow-[0_8px_20px_rgba(0,165,168,0.3)] cursor-pointer"
             >
               Book Demo
             </a>
@@ -130,7 +130,7 @@ export default function Navbar() {
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, "#contact")}
-                  className="block w-full text-center px-6 py-4 bg-teal text-white font-bold text-lg rounded-xl shadow-md cursor-pointer"
+                  className="block w-full text-center px-6 py-4 bg-teal text-navy font-bold text-lg rounded-xl shadow-md cursor-pointer"
                 >
                   Book a Demo
                 </a>

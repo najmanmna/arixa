@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { AlertTriangle, ShieldCheck, XCircle, CheckCircle2 } from "lucide-react";
 
-const withoutArixa = [
+const withoutXflow = [
   "Compliant on inspection day",
   "Drift starts the next week",
   "12 months of undocumented decisions",
   "Scramble before the next review"
 ];
 
-const withArixa = [
-  "Every action logged in real time",
-  "Every protocol enforced automatically",
-  "Full audit trail running 24/7",
-  "Inspection-ready every single day"
+const withXflow = [
+  "Every action timestamped and logged",
+  "Protocols structured for regulatory alignment",
+  "Audit-ready documentation running 24/7",
+  "Designed to simplify inspection preparation"
 ];
 
 export default function Compliance() {
@@ -46,7 +46,7 @@ export default function Compliance() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy/5 border border-navy/10 mb-6"
           >
             <ShieldCheck className="w-3 h-3 text-navy" />
-            <span className="text-navy text-[10px] font-bold tracking-widest uppercase">Continuous Governance</span>
+            <span className="text-navy text-[10px] font-bold tracking-widest uppercase">Audit-Ready Infrastructure</span>
           </motion.div>
 
           <motion.h2 
@@ -57,7 +57,8 @@ export default function Compliance() {
             className="font-heading text-4xl md:text-5xl font-extrabold text-navy tracking-tight mb-6 leading-tight"
           >
             Compliant on Inspection Day <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-light">Is Not Enough.</span>
+            {/* Updated gradient for contrast on light background */}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-dark to-teal">Is Not Enough.</span>
           </motion.h2>
           
           <motion.p 
@@ -67,7 +68,7 @@ export default function Compliance() {
             transition={{ delay: 0.2 }}
             className="text-slate-light text-lg leading-relaxed font-medium"
           >
-            Most pharmacies scramble before an inspection and relax after it. The gap in between is where risk lives. ARIXA closes that gap permanently.
+            Most pharmacies scramble before an inspection and relax after it. The gap in between is where risk lives. Xflow provides the infrastructure to help close that gap permanently.
           </motion.p>
         </div>
 
@@ -79,7 +80,7 @@ export default function Compliance() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
         >
-          {/* Card 1: Without ARIXA */}
+          {/* Card 1: Without Xflow */}
           <motion.div 
             variants={itemVariants}
             className="bg-white rounded-3xl p-8 lg:p-10 border border-gray-200 shadow-sm relative overflow-hidden"
@@ -90,11 +91,11 @@ export default function Compliance() {
               <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center border border-red-100">
                 <AlertTriangle className="w-6 h-6 text-red-500" />
               </div>
-              <h3 className="font-heading text-2xl font-bold text-navy">Without ARIXA</h3>
+              <h3 className="font-heading text-2xl font-bold text-navy">Without Xflow</h3>
             </div>
 
             <div className="space-y-5">
-              {withoutArixa.map((item, idx) => (
+              {withoutXflow.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3 opacity-80">
                   <XCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                   <span className="text-slate font-medium">{item}</span>
@@ -103,10 +104,11 @@ export default function Compliance() {
             </div>
           </motion.div>
 
-          {/* Card 2: With ARIXA */}
+          {/* Card 2: With Xflow */}
           <motion.div 
             variants={itemVariants}
-            className="bg-[#0B1D3A] rounded-3xl p-8 lg:p-10 border border-[#0F2E5C] shadow-xl relative overflow-hidden"
+            /* Updated to Xflow Deep Navy Dark and secondary border */
+            className="bg-[#01021C] rounded-3xl p-8 lg:p-10 border border-[#1A1D4E] shadow-xl relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-teal" />
             
@@ -115,15 +117,17 @@ export default function Compliance() {
 
             <div className="flex items-center gap-4 mb-8 relative z-10">
               <div className="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center border border-teal/20">
-                <ShieldCheck className="w-6 h-6 text-teal-light" />
+                {/* Changed to text-teal for the neon pop */}
+                <ShieldCheck className="w-6 h-6 text-teal" />
               </div>
-              <h3 className="font-heading text-2xl font-bold text-white">With ARIXA</h3>
+              <h3 className="font-heading text-2xl font-bold text-white">With Xflow</h3>
             </div>
 
             <div className="space-y-5 relative z-10">
-              {withArixa.map((item, idx) => (
+              {withXflow.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-teal-light mt-0.5 flex-shrink-0" />
+                  {/* Changed to text-teal for the neon pop */}
+                  <CheckCircle2 className="w-5 h-5 text-teal mt-0.5 flex-shrink-0" />
                   <span className="text-white/90 font-medium">{item}</span>
                 </div>
               ))}
@@ -140,7 +144,7 @@ export default function Compliance() {
           className="mt-16 text-center"
         >
           <p className="inline-block px-6 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm text-navy font-heading font-bold text-lg">
-            Turn compliance from a cost into a <span className="text-teal">competitive advantage.</span>
+            Turn compliance from a cost into a <span className="text-teal-dark">competitive advantage.</span>
           </p>
         </motion.div>
 

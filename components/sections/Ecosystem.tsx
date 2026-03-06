@@ -37,7 +37,6 @@ export default function Ecosystem() {
       className="py-24 md:py-32 px-6 lg:px-8 bg-[#020617] relative overflow-hidden group/section border-t border-white/5"
     >
       {/* 1. GLOBAL SPOTLIGHT & NOISE TEXTURE */}
-     {/* 1. GLOBAL SPOTLIGHT & NOISE TEXTURE */}
       <motion.div 
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500 opacity-0 group-hover/section:opacity-100 transform-gpu" 
         style={{ background: sectionSpotlight }} 
@@ -57,7 +56,6 @@ export default function Ecosystem() {
           <div className="relative bg-[#050A15]/80 backdrop-blur-2xl rounded-[2.5rem] p-10 md:p-16 lg:p-20 shadow-[0_40px_80px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
             
             {/* Interactive Border Glow */}
-           {/* Interactive Border Glow */}
             <motion.div 
               className="absolute inset-0 z-0 pointer-events-none rounded-[2.5rem] opacity-0 group-hover/quoteCard:opacity-100 transition-opacity duration-500 transform-gpu"
               style={{ background: borderSpotlight, padding: "1px", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude" }}
@@ -75,20 +73,21 @@ export default function Ecosystem() {
                 Client Success
               </p>
               
-              <blockquote className="text-2xl md:text-3xl lg:text-5xl text-white font-heading font-bold leading-[1.2] mb-14 tracking-tight">
-                "ARIXA has completely transformed how we deliver our weight management services. <br className="hidden lg:block" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-light to-teal">Every patient journey is tracked, every clinical decision is evidenced, and we're always inspection-ready.</span>"
+              {/* Replaced with compliant placeholder testimonial */}
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-bold leading-[1.3] mb-14 tracking-tight">
+                "ARIXA provides the clinically structured infrastructure we need to safely scale. <br className="hidden lg:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-light to-teal">The audit-ready documentation and integrated pathways mean we are always prepared for regulatory review.</span>"
               </blockquote>
 
               <div className="flex flex-col items-center justify-center gap-5">
-                {/* Simulated Premium Logo */}
+                {/* Simulated Premium Logo Placeholder */}
                 <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center justify-center backdrop-blur-md shadow-[0_0_20px_rgba(0,165,168,0.2)]">
-                  <span className="text-teal-light text-[10px] font-extrabold tracking-widest leading-none mb-0.5">HARLEY</span>
+                  <span className="text-teal-light text-[10px] font-extrabold tracking-widest leading-none mb-0.5">UK</span>
                   <span className="text-white text-[7px] font-medium tracking-widest opacity-80 leading-none">CLINIC</span>
                 </div>
                 <div>
-                  <div className="font-heading font-bold text-white text-lg tracking-wide mb-1">Warren Vaheeswaran</div>
-                  <div className="text-slate-400 text-sm font-medium uppercase tracking-wider text-[10px]">CEO, Harley Weight Loss Clinic</div>
+                  <div className="font-heading font-bold text-white text-lg tracking-wide mb-1">Clinical Director</div>
+                  <div className="text-slate-400 text-sm font-medium uppercase tracking-wider text-[10px]">Partner Weight Management Clinic</div>
                 </div>
               </div>
             </div>
@@ -135,21 +134,22 @@ export default function Ecosystem() {
                 <h4 className="font-heading font-extrabold text-white text-2xl mb-1">London Medical Laboratory</h4>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-light/10 border border-teal-light/20">
                    <span className="w-1.5 h-1.5 rounded-full bg-teal-light animate-pulse" />
-                   <span className="text-teal-light text-[10px] font-bold tracking-widest uppercase">API Partner</span>
+                   <span className="text-teal-light text-[10px] font-bold tracking-widest uppercase">Clinical Diagnostics Partner</span>
                 </div>
               </div>
             </div>
             
+            {/* Removed 'intelligence dashboard' -> 'clinical dashboard' */}
             <p className="text-slate-300 leading-relaxed mb-8 relative z-10 text-sm md:text-base">
-              API-integrated blood diagnostics built directly into the ARIXA workflow. Patient blood panels are processed through LML's UKAS-accredited laboratory and returned instantly as a comprehensive intelligence dashboard.
+              API-integrated blood diagnostics built directly into the ARIXA workflow. Patient blood panels are processed through LML's UKAS-accredited laboratory and returned instantly as a comprehensive clinical dashboard.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 border-t border-white/10 pt-8 relative z-10">
               {[
                 "Clinician-reviewed summaries",
                 "Individual biomarker results",
-                "AI-powered pattern recognition",
-                "Prioritised clinical actions"
+                "Cross-panel pattern analysis", // Replaced AI claim
+                "Prioritised clinical insights" // Replaced actions claim
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-start gap-3 group/feature">
                   <CheckCircle2 className="w-5 h-5 text-teal/50 mt-0.5 flex-shrink-0 group-hover/feature:text-teal-light transition-colors" />
@@ -173,15 +173,16 @@ export default function Ecosystem() {
               <div>
                 <h4 className="font-heading font-extrabold text-white text-2xl mb-1">Dr. Neesha</h4>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700">
-                   <span className="text-slate-300 text-[10px] font-bold tracking-widest uppercase">Clinical Pathway</span>
+                   <span className="text-slate-300 text-[10px] font-bold tracking-widest uppercase">Clinical Pathway Partner</span>
                 </div>
               </div>
             </div>
             
             <div className="relative z-10">
               <h5 className="font-bold text-white mb-3 text-lg">Rebound Prevention Protocols</h5>
+              {/* Updated copy to match V5 directives precisely */}
               <p className="text-slate-400 leading-relaxed text-sm md:text-base">
-                Evidence-based rebound prevention protocols embedded into the ARIXA patient journey, ensuring long-term treatment sustainability beyond initial prescribing.
+                Evidence-based rebound prevention protocols integrated into the ARIXA patient journey, supporting long-term treatment sustainability beyond initial prescribing.
               </p>
             </div>
           </motion.div>

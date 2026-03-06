@@ -2,34 +2,30 @@
 
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Store, Globe, Stethoscope, Network, ArrowRight } from "lucide-react";
+import { Store, Globe, Stethoscope, Network } from "lucide-react";
 
 const targetAudiences = [
   {
     title: "Independent Pharmacies",
-    description: "You’re already getting patients asking about weight loss injections. ARIXA gives you the governance framework to say yes — compliantly.",
-    pricing: "From £499/month",
-    feature: "Live in 2 weeks",
+    description: "You’re already getting patients asking about weight loss injections. Xflow gives you the clinically structured infrastructure to say yes — safely.",
+    feature: "Live in 14 days",
     icon: Store,
   },
   {
     title: "Online Pharmacies",
-    description: "You have traffic but your prescribing workflow is manual and your compliance trail is a mess. ARIXA automates the entire funnel from intake to dispensing.",
-    pricing: "From £3,500/month",
+    description: "You have traffic but your prescribing workflow is manual. Xflow automates the entire funnel from intake to dispensing with audit-ready documentation.",
     feature: "API-first integration",
     icon: Globe,
   },
   {
     title: "Weight Management Clinics",
-    description: "Your clinicians are spending 20 minutes per review when they could see 10x more patients. ARIXA compresses clinical review to 2 minutes without cutting corners.",
-    pricing: "From £1,500/month",
-    feature: "10x capacity",
+    description: "Xflow streamlines the clinical review process with structured patient summaries, reducing administrative burden so your team can focus on care.",
+    feature: "Streamlined Workflows",
     icon: Stethoscope,
   },
   {
     title: "Pharmacy Networks & Chains",
-    description: "Roll out GLP-1 services across 5, 10, or 50 sites with centralised governance, consolidated reporting, and consistent protocols.",
-    pricing: "Custom pricing",
+    description: "Roll out GLP-1 services across 5, 10, or 50 sites with centralised visibility, consolidated reporting, and structured clinical consistency.",
     feature: "Enterprise dashboard",
     icon: Network,
   }
@@ -94,14 +90,16 @@ export default function WhoIsThisFor() {
             <motion.div 
               key={index}
               variants={cardVariants}
-              className="group relative bg-white border border-gray-200 rounded-3xl p-8 lg:p-10 flex flex-col hover:border-teal/30 hover:shadow-[0_20px_40px_-15px_rgba(0,165,168,0.15)] hover:-translate-y-1 transition-all duration-300"
+              /* Updated hover shadow RGB to Xflow Electric Cyan */
+              className="group relative bg-white border border-gray-200 rounded-3xl p-8 lg:p-10 flex flex-col hover:border-teal/30 hover:shadow-[0_20px_40px_-15px_rgba(0,234,255,0.15)] hover:-translate-y-1 transition-all duration-300"
             >
               {/* Subtle hover gradient inside the card */}
               <div className="absolute inset-0 bg-gradient-to-br from-teal-subtle/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl pointer-events-none" />
               
               <div className="relative z-10 flex-1">
                 <div className="w-14 h-14 rounded-2xl bg-teal-subtle/50 border border-teal/10 flex items-center justify-center mb-6 group-hover:bg-teal/10 group-hover:scale-110 transition-all duration-300">
-                  <audience.icon className="w-6 h-6 text-teal" />
+                  {/* Updated to text-teal-dark for contrast against white background */}
+                  <audience.icon className="w-6 h-6 text-teal-dark" />
                 </div>
                 
                 <h3 className="font-heading text-2xl font-bold text-navy mb-3">
@@ -113,12 +111,10 @@ export default function WhoIsThisFor() {
                 </p>
               </div>
 
-              {/* Card Footer: Pricing & Feature */}
-              <div className="relative z-10 mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-bold text-navy">{audience.pricing}</div>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-teal tracking-wide uppercase bg-teal/5 px-3 py-1.5 rounded-full border border-teal/10">
+              {/* Card Footer: Feature */}
+              <div className="relative z-10 mt-auto pt-6 border-t border-gray-100 flex items-center justify-start">
+                {/* Updated to text-teal-dark for contrast */}
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-dark tracking-wide uppercase bg-teal/10 px-3 py-1.5 rounded-full border border-teal/20">
                   {audience.feature}
                 </div>
               </div>

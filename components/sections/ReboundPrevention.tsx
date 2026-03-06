@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Activity, ShieldCheck, TrendingDown, Users } from "lucide-react";
+import { BrainCircuit, ShieldCheck, Activity } from "lucide-react";
 
 const phases = [
   {
@@ -13,12 +13,12 @@ const phases = [
   {
     title: "Phase 2: Structured Taper",
     months: "Months 11–12",
-    description: "Gradual dose reduction with weekly check-ins via the ARIXA app. Symptom monitoring and clinical support.",
+    description: "Gradual dose reduction with structured check-ins via the Xflow patient pathway. Symptom monitoring and clinical support.",
   },
   {
     title: "Phase 3: Maintenance Support",
     months: "Month 13+",
-    description: "Follow-up at 3, 6, and 12 months. Re-engagement pathways if needed. The patient is never just left to figure it out.",
+    description: "Follow-up at 3, 6, and 12 months. Re-engagement pathways if needed. Ensuring long-term treatment sustainability beyond initial prescribing.",
   }
 ];
 
@@ -47,10 +47,10 @@ export default function ReboundPrevention() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-100 mb-6"
           >
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-red-600 text-[10px] font-bold tracking-widest uppercase">The Industry Secret</span>
+            <span className="w-2 h-2 rounded-full bg-teal animate-pulse" />
+            <span className="text-teal-dark text-[10px] font-bold tracking-widest uppercase">The Clinical Gap</span>
           </motion.div>
 
           <motion.h2 
@@ -60,8 +60,9 @@ export default function ReboundPrevention() {
             transition={{ delay: 0.1 }}
             className="font-heading text-4xl md:text-5xl font-extrabold text-navy tracking-tight mb-6 leading-tight"
           >
-            70% of Patients Regain the Weight. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-light">Ours Don’t.</span>
+            Beyond the Prescription. <br />
+            {/* Updated gradient to from-teal-dark to-teal for white background legibility */}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-dark to-teal">Structured Support.</span>
           </motion.h2>
           
           <motion.p 
@@ -71,33 +72,34 @@ export default function ReboundPrevention() {
             transition={{ delay: 0.2 }}
             className="text-slate-light text-lg leading-relaxed mb-8"
           >
-            Most providers abandon patients when treatment ends. ARIXA includes Dr. Neesha Patel’s evidence-based rebound prevention programme — the reason we hit 95% patient retention.
+            Most providers lack structured off-boarding when treatment ends. Xflow integrates evidence-based rebound prevention protocols into the patient journey, supporting long-term sustainability.
           </motion.p>
 
-          {/* Stats Bar */}
+          {/* Compliant Capability Highlights */}
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-teal-subtle flex items-center justify-center">
-                <Users className="w-5 h-5 text-teal" />
+            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-teal-subtle flex items-center justify-center flex-shrink-0">
+                {/* Updated to text-teal-dark */}
+                <BrainCircuit className="w-5 h-5 text-teal-dark" />
               </div>
               <div>
-                <div className="text-xl font-heading font-extrabold text-navy">95%</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Patient Retention</div>
+                <div className="text-sm font-heading font-extrabold text-navy">Psychology-Led</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Behavioural Tools</div>
               </div>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
-                <TrendingDown className="w-5 h-5 text-emerald-500" />
+            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center flex-shrink-0">
+                <Activity className="w-5 h-5 text-indigo-500" />
               </div>
               <div>
-                <div className="text-xl font-heading font-extrabold text-navy">70%</div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Less Weight Regain</div>
+                <div className="text-sm font-heading font-extrabold text-navy">Sustainable</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Long-Term Pathways</div>
               </div>
             </div>
           </motion.div>
@@ -119,8 +121,10 @@ export default function ReboundPrevention() {
               <motion.div key={idx} variants={itemVariants} className="flex gap-6 group">
                 {/* Node */}
                 <div className="flex-shrink-0 relative">
-                  <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center group-hover:border-teal group-hover:shadow-[0_0_15px_rgba(0,165,168,0.3)] transition-all duration-300">
-                     <span className="font-heading font-bold text-navy group-hover:text-teal transition-colors">0{idx + 1}</span>
+                  {/* Updated hover shadow RGB to Xflow Electric Cyan */}
+                  <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center group-hover:border-teal group-hover:shadow-[0_0_15px_rgba(0,234,255,0.3)] transition-all duration-300">
+                     {/* Updated text-teal to text-teal-dark */}
+                     <span className="font-heading font-bold text-navy group-hover:text-teal-dark transition-colors">0{idx + 1}</span>
                   </div>
                 </div>
 
@@ -142,7 +146,8 @@ export default function ReboundPrevention() {
           
           {/* Bottom badge */}
           <motion.div variants={itemVariants} className="mt-10 pt-6 border-t border-gray-200 flex items-center gap-3">
-             <ShieldCheck className="w-5 h-5 text-teal" />
+             {/* Updated to text-teal-dark */}
+             <ShieldCheck className="w-5 h-5 text-teal-dark" />
              <span className="text-sm font-semibold text-slate">Designed by Dr. Neesha Patel, Clinical Psychologist (HCPC)</span>
           </motion.div>
         </motion.div>

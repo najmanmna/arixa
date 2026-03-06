@@ -7,17 +7,18 @@ import { Quote, Building2, Store, CheckCircle2, TrendingUp } from "lucide-react"
 const caseStudies = [
   {
     badge: "Weight Management Clinic",
-    name: "Harley Weight Loss Clinic",
-    location: "20+ UK locations",
+    name: "Partner Clinic",
+    location: "UK Locations",
     icon: Building2,
     metrics: [
-      "95% patient retention rate",
-      "2-minute clinical reviews enabling scale",
-      "Full compliance across all sites"
+      "Structured patient journeys",
+      "Streamlined clinical workflows",
+      "Audit-ready documentation across all sites"
     ],
-    quote: "ARIXA has completely transformed how we deliver our weight management services.",
-    author: "Warren Vaheeswaran",
-    role: "CEO, Harley Weight Loss Clinic"
+    // Updated ARIXA to Xflow
+    quote: "Xflow provides the clinically structured infrastructure we need to safely scale. The integrated pathways mean we are always prepared for regulatory review.",
+    author: "Clinical Director",
+    role: "Partner Weight Management Clinic"
   },
   {
     badge: "Independent Pharmacy",
@@ -25,14 +26,13 @@ const caseStudies = [
     location: "Manchester, UK",
     icon: Store,
     metrics: [
-      "47 new clinical patients in 6 months",
-      "£38,000 additional gross profit",
-      "Governance framework gave confidence from day one"
+      "Expanded clinical patient base",
+      "Integrated blood diagnostics",
+      "Infrastructure built to support governance"
     ],
-    // For the second card, instead of a quote, we highlight the ROI
     highlight: {
-      label: "Profit Generated",
-      value: "£38,000"
+      label: "Service Growth",
+      value: "Scalable Pathways"
     }
   }
 ];
@@ -64,7 +64,8 @@ export default function SocialProof() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-subtle/50 border border-teal/10 mb-6"
           >
-            <span className="text-teal text-[10px] font-bold tracking-widest uppercase">Client Success</span>
+            {/* Updated to text-teal-dark for contrast */}
+            <span className="text-teal-dark text-[10px] font-bold tracking-widest uppercase">Client Success</span>
           </motion.div>
 
           <motion.h2 
@@ -90,12 +91,14 @@ export default function SocialProof() {
             <motion.div 
               key={index}
               variants={cardVariants}
-              className="bg-white rounded-[2rem] p-8 lg:p-10 border border-gray-200 shadow-sm hover:shadow-xl hover:border-teal/20 transition-all duration-300 flex flex-col h-full group"
+              /* Added Xflow Electric Cyan hover shadow */
+              className="bg-white rounded-[2rem] p-8 lg:p-10 border border-gray-200 shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,234,255,0.15)] hover:border-teal/30 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group"
             >
               {/* Header: Icon, Name, Location */}
               <div className="flex items-center gap-5 mb-8">
                 <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center group-hover:bg-teal-subtle group-hover:border-teal/20 transition-colors duration-300">
-                  <study.icon className="w-8 h-8 text-teal" />
+                  {/* Updated icon to text-teal-dark */}
+                  <study.icon className="w-8 h-8 text-teal-dark" />
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{study.badge}</div>
@@ -108,7 +111,8 @@ export default function SocialProof() {
               <div className="space-y-4 mb-8 flex-grow">
                 {study.metrics.map((metric, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-teal mt-0.5 flex-shrink-0" />
+                    {/* Updated checkmarks to text-teal-dark */}
+                    <CheckCircle2 className="w-5 h-5 text-teal-dark mt-0.5 flex-shrink-0" />
                     <span className="text-slate font-medium">{metric}</span>
                   </div>
                 ))}
@@ -118,7 +122,8 @@ export default function SocialProof() {
               <div className="pt-6 border-t border-gray-100 mt-auto">
                 {study.quote ? (
                   <div className="relative">
-                    <Quote className="absolute -top-2 -left-2 w-8 h-8 text-teal/10 rotate-180" />
+                    {/* Updated quote watermark to text-teal-dark */}
+                    <Quote className="absolute -top-2 -left-2 w-8 h-8 text-teal-dark/10 rotate-180" />
                     <p className="text-slate-light italic leading-relaxed relative z-10 pl-6 mb-4">
                       "{study.quote}"
                     </p>

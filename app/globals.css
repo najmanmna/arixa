@@ -1,36 +1,36 @@
-/* Import Tailwind v4 base */
 @import "tailwindcss";
 
 /* ========================================
-  ARIXA THEME CONFIGURATION (Tailwind v4)
+  XFLOW THEME CONFIGURATION (Tailwind v4)
   ========================================
 */
 @theme {
-  /* Brand Colors - Adjusted for lighter, approachable SaaS feel */
-  --color-navy: #0B1D3A;          /* Core Navy (Kept for high-contrast text and footers) */
-  --color-navy-light: #0F2E5C;    /* Gradients / Hover states */
-  --color-navy-dark: #020617;     /* Deep contrast */
+  /* Brand Colors - Xflow Identity */
+  --color-navy: #020438;          /* Primary Deep Navy */
+  --color-navy-light: #1A1D4E;    /* Secondary Softer Navy */
+  --color-navy-dark: #01021C;     /* Deep contrast for dark sections */
 
-  --color-teal: #00A5A8;          /* Primary Action / Accents */
-  --color-teal-light: #00C9B7;    /* Glows / Highlights */
-  --color-teal-subtle: #E6F7F7;   /* Soft background washes / Tints */
+  --color-teal: #00EAFF;          /* Electric Cyan - Primary Accent & Buttons */
+  --color-teal-light: #80F4FF;    /* Glows / Highlights */
+  --color-teal-dark: #0093A3;     /* NEW: Readable deep cyan for text on white backgrounds */
+  --color-teal-subtle: #E0F9FB;   /* Surface Cyan / Soft Backgrounds */
 
   --color-slate: #334155;         /* Body Text */
   --color-slate-light: #64748B;   /* Secondary text */
 
-  /* NEW: Warm Accents & Soft Backgrounds */
-  --color-coral-soft: #FF8A65;    /* Warm callout accent */
-  --color-amber-light: #FFD54F;   /* Warm highlight accent */
-  --color-off-white: #FAFAFA;     /* Soft background alternative */
-  --color-gray-50: #F8FAFC;       /* Clean SaaS background */
+  /* Supporting Accents */
+  --color-coral-soft: #FF8A65;    
+  --color-amber-light: #FFD54F;   
+  --color-off-white: #FAFAFA;     
+  --color-gray-50: #F8FAFC;       
 
   /* Typography */
   --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-source), ui-sans-serif, system-ui, sans-serif;
 
   /* Custom Gradients */
-  --background-image-gradient-light: linear-gradient(135deg, #FAFAFA 0%, #E6F7F7 100%);
-  --background-image-gradient-navy: linear-gradient(135deg, #0B1D3A 0%, #122B55 50%, #0B1D3A 100%);
+  --background-image-gradient-light: linear-gradient(135deg, #FAFAFA 0%, #E0F9FB 100%);
+  --background-image-gradient-navy: linear-gradient(135deg, #020438 0%, #1A1D4E 50%, #020438 100%);
 
   --animate-shimmer: shimmer 2s infinite linear;
   @keyframes shimmer {
@@ -48,23 +48,22 @@
   }
 
   body {
-    /* Set default background to off-white for a breathable SaaS feel */
     @apply font-body text-slate bg-off-white antialiased;
   }
 
-  /* Force headings to use the Inter font and Navy color by default */
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading text-navy;
   }
 }
 
 /* ========================================
-  CUSTOM UTILITIES (Optional Animations)
+  CUSTOM UTILITIES
   ========================================
 */
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal to-teal-light;
+    /* Updated to use teal-dark so default gradients are readable on white */
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-dark to-teal;
   }
   
   .bg-glass {
