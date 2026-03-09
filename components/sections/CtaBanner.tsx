@@ -8,13 +8,13 @@ export default function CtaBanner() {
   return (
     <section 
       id="contact" 
-      /* Using 10QRX Deep Navy Dark */
       className="relative py-24 sm:py-32 px-6 lg:px-8 bg-[#01021C] overflow-hidden border-t border-white/10"
     >
       {/* ── 1. ATMOSPHERIC ELEMENTS ── */}
+      {/* Updated Glows to Tech Blue (#51a2ff) */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] opacity-30 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal/5 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/3 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#51a2ff]/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#51a2ff]/5 rounded-full blur-[100px] -translate-x-1/4 translate-y-1/3 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -26,15 +26,15 @@ export default function CtaBanner() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Badge - Neon Teal Pop */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal/10 border border-teal/20 text-teal text-[10px] font-bold tracking-[0.2em] uppercase mb-8 shadow-sm backdrop-blur-md">
+            {/* Badge - Tech Blue Pop */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#51a2ff]/10 border border-[#51a2ff]/20 text-[#51a2ff] text-[10px] font-bold tracking-[0.2em] uppercase mb-8 shadow-sm backdrop-blur-md">
               <Sparkles className="w-3 h-3" />
               Scale Safely
             </div>
 
             <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
               Ready to Prescribe <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal via-white to-teal bg-[length:200%_auto] animate-[shimmer_5s_infinite_linear]">Without the Chaos?</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#51a2ff] via-white to-[#51a2ff] bg-[length:200%_auto] animate-[shimmer_5s_infinite_linear]">Without the Chaos?</span>
             </h2>
             
             <p className="text-lg text-slate-300 mb-10 max-w-md leading-relaxed font-light">
@@ -42,12 +42,11 @@ export default function CtaBanner() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-5 mb-12">
-              {/* Secondary CTA: Readiness Review - Updated email to 10qrx.com */}
               <a 
                 href="mailto:admin@10qrx.com?subject=GLP-1 Readiness Review Request" 
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/20 transition-all backdrop-blur-md group"
               >
-                <ShieldCheck className="w-5 h-5 text-teal group-hover:scale-110 transition-transform" />
+                <ShieldCheck className="w-5 h-5 text-[#51a2ff] group-hover:scale-110 transition-transform" />
                 Free Readiness Review
               </a>
             </div>
@@ -55,8 +54,8 @@ export default function CtaBanner() {
             {/* Pricing Anchor */}
             <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm shadow-inner">
                <div className="relative flex h-2 w-2">
-                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75"></span>
-                 <span className="relative inline-flex rounded-full h-2 w-2 bg-teal"></span>
+                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#51a2ff] opacity-75"></span>
+                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#51a2ff]"></span>
                </div>
                <p className="text-slate-400 text-xs font-bold tracking-widest uppercase">
                  Tailored Implementation <span className="mx-3 text-white/10">|</span> Live in 14 days
@@ -72,7 +71,6 @@ export default function CtaBanner() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-md mx-auto lg:ml-auto"
           >
-            {/* Glass frame for the embed */}
             <div className="relative bg-white/[0.02] border border-white/10 rounded-[2rem] p-4 backdrop-blur-xl shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
               {/* Decorative Mac toolbar */}
               <div className="flex items-center gap-2 px-4 pb-4 pt-2 border-b border-white/5 mb-4">
@@ -85,31 +83,28 @@ export default function CtaBanner() {
               </div>
 
               {/* CALENDLY EMBED CONTAINER */}
-              <div className="w-full h-[450px] rounded-xl overflow-hidden bg-white">
-                {/* Updated calendly link to 10qrx */}
+              <div className="w-full h-[520px] rounded-xl overflow-hidden bg-white">
+                {/* Added parameters:
+                   - hide_event_type_details=1 (Removes the left sidebar for a cleaner fit)
+                   - primary_color=51a2ff (Matches the widget buttons to your new tech blue)
+                */}
                 <iframe
-                  src="https://calendly.com/10qrx/demo?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=00eaff"
+                  src="https://calendly.com/ari-10qbit/10qrx-platform-demo?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=51a2ff"
                   width="100%"
                   height="100%"
                   frameBorder="0"
+                  loading="lazy"
                   title="Schedule a Demo"
                 ></iframe>
               </div>
             </div>
 
             {/* Background glow for the widget */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-teal/20 blur-[100px] -z-10 rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#51a2ff]/20 blur-[100px] -z-10 rounded-full" />
           </motion.div>
 
         </div>
       </div>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-      `}} />
     </section>
   );
 }
