@@ -59,12 +59,15 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
           
           {/* LOGO */}
-          <Link href="/" className="flex items-center gap-2 group relative z-50">
-            <span className="inline-block w-4 h-4 bg-teal rounded-sm transition-transform group-hover:rotate-45 duration-300"></span>
-            <span className="font-heading font-extrabold text-2xl tracking-tight text-navy transition-colors duration-300">
-              10QRX
-            </span>
-            <span className="text-[10px] font-bold tracking-[0.2em] ml-1 mt-1 text-slate-light transition-colors duration-300">
+          <Link href="/" className="flex items-center group relative z-50">
+            {/* The Text Mark */}
+            <div className="font-heading font-extrabold text-2xl tracking-tight transition-transform duration-300 group-hover:scale-105 origin-left">
+              <span className="text-navy">10Q</span>
+              <span className="text-teal"> RX</span>
+            </div>
+            
+            {/* The Submark */}
+            <span className="text-[10px] font-bold tracking-[0.2em] ml-1.5 mt-1.5 text-slate-400 transition-colors duration-300">
               HEALTH
             </span>
           </Link>

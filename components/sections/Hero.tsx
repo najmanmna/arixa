@@ -78,7 +78,7 @@ export default function Hero() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full shadow-sm bg-white/80 border border-teal/20 backdrop-blur-md hover:bg-white transition-colors cursor-default">
               <ShieldCheck className="w-3.5 h-3.5 text-teal-dark" />
               <span className="text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-widest text-navy uppercase">
-                GLP-1 Weight Management Infrastructure
+                GLP-1 WEIGHT MANAGEMENT OS
               </span>
             </div>
           </motion.div>
@@ -86,21 +86,22 @@ export default function Hero() {
           {/* Headline */}
           <motion.div variants={rise} className="space-y-4 w-full">
             <h1 className="text-[2.5rem] leading-[1.1] sm:text-4xl md:text-5xl lg:text-[4.5rem] font-heading font-extrabold text-navy sm:leading-[1.05] tracking-tight drop-shadow-sm">
-              The Clinically Structured <br className="hidden sm:block" />
+              The #1 Weight Loss <br className="hidden sm:block" />
               <span className="relative inline-block mt-1">
                 <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-teal-dark via-teal to-teal-dark bg-[length:200%_auto] animate-[shimmer_4s_infinite_linear] pb-1">
-                  Infrastructure
+                  Operating System
                 </span>
                 <svg className="absolute w-full h-2.5 sm:h-3 sm:h-3.5 -bottom-0.5 sm:-bottom-0.5 left-0 text-teal/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                   <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
                 </svg>
               </span>
               <br className="block sm:hidden" />
-              <br className="hidden sm:block" /> for Modern Healthcare.
+              <br className="hidden sm:block" /> for UK Pharmacies and Clinics.
             </h1>
             
-            <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-[21rem] sm:max-w-2xl mx-auto leading-relaxed font-medium">
-              Powering UK pharmacy-led clinical services with science, safety, and scale. <span className="font-bold text-navy">10QRX</span> structures the entire patient journey — so you can focus on clinical decisions, not administration.
+            {/* Subtext */}
+            <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-[21rem] sm:max-w-[42rem] mx-auto leading-relaxed font-medium">
+              <span className="font-bold text-navy">10QRX</span> governs the entire weight management journey — eligibility, bloods, prescribing, maintenance — so you're always audit-ready and free to focus on patients, not paperwork.
             </p>
           </motion.div>
 

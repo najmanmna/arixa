@@ -16,12 +16,19 @@ export default function Footer() {
           
           {/* ── BRAND COLUMN ── */}
           <div className="max-w-sm">
-            <Link href="/" className="flex items-center gap-2 group mb-6">
-              {/* Logo mark with 10QRX Electric Cyan Glow */}
-              <span className="inline-block w-4 h-4 bg-teal rounded-sm transition-transform group-hover:rotate-45 duration-500 shadow-[0_0_15px_rgba(0,234,255,0.6)]"></span>
-              <span className="font-heading font-extrabold text-2xl tracking-tighter text-white">10QRX</span>
-              <span className="text-teal text-[10px] font-bold tracking-[0.3em] ml-1 mt-1">HEALTH</span>
-            </Link>
+           <Link href="/" className="flex items-center group mb-6">
+  {/* The Text Mark */}
+  <div className="font-heading font-extrabold text-2xl tracking-tight transition-transform duration-300 group-hover:scale-105 origin-left">
+    <span className="text-white">10Q</span>
+    {/* Moved the electric glow directly onto the RX text! */}
+    <span className="text-teal drop-shadow-[0_0_12px_rgba(0,234,255,0.5)]"> RX</span>
+  </div>
+  
+  {/* The Submark */}
+  <span className="text-teal/80 text-[10px] font-bold tracking-[0.3em] ml-1.5 mt-1.5 transition-colors duration-300">
+    HEALTH
+  </span>
+</Link>
             <p className="text-slate-400 text-sm leading-relaxed font-medium mb-8">
               The clinically structured infrastructure for UK pharmacies and clinics. Scale your GLP-1 weight management services safely and securely.
             </p>

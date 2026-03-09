@@ -20,6 +20,10 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const scrollableRef = useRef<HTMLDivElement>(null);
   const accumulatorRef = useRef(0);
   const cooldownRef = useRef(false);
+  
+  // ── THE FIX: OBSERVER IMMUNITY ──
+  // This prevents the user from getting "sucked back in" immediately after exiting
+  const ignoreObserverRef = useRef(false);
 
   const SCROLL_THRESHOLD = 40; 
   const EDGE_FORGIVENESS = 10; 
@@ -71,41 +75,58 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+        // If we just exited the deck, ignore the observer so we don't get trapped
+        if (ignoreObserverRef.current) return;
+
+        if (entry.isIntersecting && entry.intersectionRatio > 0.35) {
+          document.body.style.overflow = "hidden";
           setIsActive(true);
+          
+          if (wrapperRef.current) {
+            const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: wrapperTop, behavior: "auto" });
+          }
         }
       },
-      { threshold: [0.6] }
+      { threshold: [0, 0.2, 0.35, 0.5, 0.8, 1] } 
     );
     if (wrapperRef.current) observer.observe(wrapperRef.current);
     return () => observer.disconnect();
   }, [isMobile]);
 
-  // ── 5. LISTEN FOR NAVBAR CLICKS (The Fix) ──
+  // 5. Listen for Navbar Clicks
+// 5. Listen for Navbar Clicks
   useEffect(() => {
     const handleDeckNavigate = (e: Event) => {
       const customEvent = e as CustomEvent;
       const targetId = customEvent.detail;
 
-      // Find which child component has this ID attached to it
+      // Check if the link belongs to a slide inside the deck
       const targetIndex = sections.findIndex((child: any) => 
         child?.props?.id === targetId
       );
 
-      // Using !isMobile instead of the broken isDesktop variable
       if (targetIndex !== -1 && !isMobile) {
-        setIsActive(true); // Lock the screen into presentation mode
-        goTo(targetIndex); // Switch the Framer Motion slide
+        // SCENARIO 1: It's a deck slide. Lock the screen and switch to it.
+        setIsActive(true);
+        goTo(targetIndex);
 
-        // Scroll the browser window down to the Pitch Deck so the user sees it
         if (wrapperRef.current) {
           const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
           window.scrollTo({ top: wrapperTop, behavior: "smooth" });
         }
+      } else if (!isMobile) {
+        // ── THE FIX FOR LEADERSHIP / BOOK A DEMO ──
+        // SCENARIO 2: It's NOT a slide. We must unlock the deck!
+        setIsActive(false); 
+        
+        // Close the observer's eyes for 1 second so the deck doesn't accidentally 
+        // suck you back in as you scroll past it on your way to the footer.
+        ignoreObserverRef.current = true; 
+        setTimeout(() => { ignoreObserverRef.current = false; }, 1000);
       }
     };
 
-    // Cast the function to EventListener to satisfy TypeScript
     window.addEventListener("deckNavigate", handleDeckNavigate as EventListener);
     return () => window.removeEventListener("deckNavigate", handleDeckNavigate as EventListener);
   }, [sections, isMobile, goTo]);
@@ -138,13 +159,28 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
       e.preventDefault();
       if (isTransitioning || cooldownRef.current) return;
 
+      // ── THE FIX: ESCAPING THE DECK ──
       if (isGoingDown && current === totalSlides - 1) {
         setIsActive(false);
+        ignoreObserverRef.current = true; // Close the observer's eyes
+        
+        // Push the user 70% down the screen so they safely clear the trigger zone
+        window.scrollBy({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+        
+        // Open the observer's eyes after 1 second
+        setTimeout(() => { ignoreObserverRef.current = false; }, 1000);
         return;
       }
+
       if (isGoingUp && current === 0) {
         setIsActive(false);
-        window.scrollTo({ top: (wrapperRef.current?.offsetTop || 0) - 100, behavior: 'smooth' });
+        ignoreObserverRef.current = true; // Close the observer's eyes
+        
+        // Push the user 70% up the screen so they safely clear the trigger zone
+        window.scrollBy({ top: -(window.innerHeight * 0.7), behavior: 'smooth' });
+        
+        // Open the observer's eyes after 1 second
+        setTimeout(() => { ignoreObserverRef.current = false; }, 1000);
         return;
       }
 
@@ -180,12 +216,12 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   // ── RENDER PATH 2: DESKTOP PITCH DECK ──
   // ════════════════════════════════════════════════════════
   return (
-    <div ref={wrapperRef} className="relative w-full h-[100vh] bg-[#01021C] overflow-hidden">
+    <div ref={wrapperRef} className="relative w-full h-[100vh] bg-slate-50 overflow-hidden">
       
       {/* ── TOP PROGRESS BAR ── */}
-      <div className="absolute top-0 left-0 right-0 h-1 z-[110] bg-white/5">
+      <div className="absolute top-0 left-0 right-0 h-1 z-[110] bg-slate-200">
         <motion.div 
-          className="h-full bg-teal shadow-[0_0_10px_rgba(0,234,255,0.5)]"
+          className="h-full bg-teal shadow-[0_0_10px_rgba(0,165,168,0.4)]"
           animate={{ width: `${((current + 1) / totalSlides) * 100}%` }}
           transition={{ duration: 0.3 }}
         />
@@ -225,7 +261,7 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
             onClick={() => goTo(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i === current ? "bg-teal w-6 shadow-[0_0_8px_rgba(0,234,255,0.8)]" : "bg-white/20 hover:bg-white/40"
+              i === current ? "bg-teal w-6 shadow-[0_0_8px_rgba(0,165,168,0.5)]" : "bg-slate-300 hover:bg-slate-400"
             }`}
           />
         ))}

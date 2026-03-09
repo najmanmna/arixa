@@ -44,7 +44,7 @@ export default function Home() {
         <div id="contact"><CtaBanner /></div>
       </div>
       
-      <Footer />
+
     </main>
   );
 }
