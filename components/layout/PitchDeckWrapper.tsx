@@ -12,10 +12,6 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-  // ── RESPONSIVE STATE ──
-  const [isMounted, setIsMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(true);
-
   const wrapperRef = useRef<HTMLDivElement>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
   const accumulatorRef = useRef(0);
@@ -24,35 +20,17 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const SCROLL_THRESHOLD = 40; 
   const EDGE_FORGIVENESS = 10; 
 
-  // ── 1. MOUNT & SCREEN SIZE DETECTION ──
+  // ── FIX 1: FORCE SLIDE TO TOP ON INDEX CHANGE ──
   useEffect(() => {
-    setIsMounted(true);
-    const checkScreenSize = () => {
-      // 1024px matches Tailwind's 'lg' breakpoint.
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
-
-  // ── 2. FORCE SLIDE TO TOP ON INDEX CHANGE ──
-  useEffect(() => {
-    if (!isDesktop) return; // Bypass on mobile
     if (scrollableRef.current) {
       scrollableRef.current.scrollTop = 0;
     }
-  }, [current, isDesktop]);
+  }, [current]);
 
-  // ── 3. SNAP WRAPPER TO VIEWPORT TOP ON ACTIVATION ──
+  // ── FIX 2: SNAP WRAPPER TO VIEWPORT TOP ON ACTIVATION ──
   useEffect(() => {
-    if (!isDesktop) {
-      document.body.style.overflow = ""; // Ensure mobile is never scroll-locked
-      return;
-    }
-
     if (isActive && wrapperRef.current) {
+      // This eliminates the "Gap" by ensuring the container is 100% aligned with the screen
       const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
         top: wrapperTop,
@@ -63,7 +41,7 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [isActive, isDesktop]);
+  }, [isActive]);
 
   const goTo = useCallback((index: number, dir?: 1 | -1) => {
     if (isTransitioning || index < 0 || index >= totalSlides || index === current) return;
@@ -76,12 +54,10 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const next = useCallback(() => goTo(current + 1, 1), [current, goTo]);
   const prev = useCallback(() => goTo(current - 1, -1), [current, goTo]);
 
-  // ── 4. DECK ACTIVATION OBSERVER ──
   useEffect(() => {
-    if (!isDesktop) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
+        // Trigger slightly earlier (0.6) so the smooth snap has time to finish
         if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
           setIsActive(true);
         }
@@ -90,12 +66,9 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
     );
     if (wrapperRef.current) observer.observe(wrapperRef.current);
     return () => observer.disconnect();
-  }, [isDesktop]);
+  }, []);
 
-  // ── 5. SCROLL HIJACKING LOGIC ──
   useEffect(() => {
-    if (!isDesktop) return;
-
     const handleWheel = (e: WheelEvent) => {
       if (!isActive) return;
 
@@ -128,6 +101,7 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
       }
       if (isGoingUp && current === 0) {
         setIsActive(false);
+        // Ensure we scroll back to the Metrics section perfectly
         window.scrollTo({ top: (wrapperRef.current?.offsetTop || 0) - 100, behavior: 'smooth' });
         return;
       }
@@ -147,22 +121,8 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isActive, isTransitioning, current, next, prev, totalSlides, isDesktop]);
+  }, [isActive, isTransitioning, current, next, prev, totalSlides]);
 
-  // ════════════════════════════════════════════════════════
-  // ── RENDER PATH 1: SSR FALLBACK OR MOBILE DEVICE ──
-  // ════════════════════════════════════════════════════════
-  if (!isMounted || !isDesktop) {
-    return (
-      <div className="w-full flex flex-col bg-white">
-        {children}
-      </div>
-    );
-  }
-
-  // ════════════════════════════════════════════════════════
-  // ── RENDER PATH 2: DESKTOP PITCH DECK ──
-  // ════════════════════════════════════════════════════════
   return (
     <div ref={wrapperRef} className="relative w-full h-screen bg-[#01021C] overflow-hidden">
       {/* ── TOP PROGRESS BAR ── */}
@@ -193,7 +153,9 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="absolute inset-0 w-full h-full overflow-hidden"
         >
-          {/* INTERNAL SCROLL CONTAINER */}
+          {/* INTERNAL SCROLL CONTAINER 
+              We use flex and h-full to ensure sections snap to center 
+          */}
           <div 
             ref={scrollableRef} 
             className="w-full h-full overflow-y-auto bg-white flex flex-col hide-scrollbar"
