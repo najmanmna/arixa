@@ -22,10 +22,18 @@ const sourceSans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "10QRX — Governance Infrastructure for Modern Healthcare",
   description: "Powering UK pharmacy-led clinical services with science, safety, and scale.",
+  
+  // ── ADD THIS SECTION ──
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png", // Optional: uses the same icon for Apple home screen bookmarks
+  },
+  
   openGraph: {
     title: "10QRX — Clinical Governance Infrastructure",
     description: "Powering UK pharmacy-led clinical services with science, safety, and scale.",
-    url: "https://10qrx.com", // Update this to the actual domain when ready
+    url: "https://10qrx.com",
     siteName: "10QRX",
     locale: "en_GB",
     type: "website",
