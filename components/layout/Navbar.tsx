@@ -23,25 +23,26 @@ export default function Navbar() {
   }, []);
 
   // --- BULLETPROOF SMOOTH SCROLL HANDLER ---
+// --- BULLETPROOF SMOOTH SCROLL HANDLER ---
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // If it's a hash link on the current page
     if (href.startsWith("#")) {
       e.preventDefault();
       const targetId = href.replace("#", "");
-      const elem = document.getElementById(targetId);
-      
-      if (elem) {
-        // 80px offset ensures the sticky navbar doesn't cover the section title
-        const offset = 80; 
-        const elementPosition = elem.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
-  
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
-      }
-      // Always close mobile menu on click
+
+      // 1. Shout out to the PitchDeckWrapper to change slides (For Desktop)
+      window.dispatchEvent(new CustomEvent('deckNavigate', { detail: targetId }));
+
+      // 2. Standard scrolling fallback (For Mobile, or sections outside the deck like Contact)
+      setTimeout(() => {
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          const offset = 80;
+          const elementPosition = elem.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - offset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+      }, 50); // Tiny delay ensures the slide has time to mount before we scroll to it
+
       setIsMobileMenuOpen(false); 
     }
   };

@@ -12,9 +12,9 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isActive, setIsActive] = useState(false);
   
-  // ── RESPONSIVE STATE (Safe for Next.js) ──
+  // ── RESPONSIVE STATE ──
   const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(true); // Default to true to prevent server mismatch
+  const [isMobile, setIsMobile] = useState(true);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   useEffect(() => {
     setIsMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -81,7 +81,36 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
     return () => observer.disconnect();
   }, [isMobile]);
 
-  // 5. Scroll Hijacking logic
+  // ── 5. LISTEN FOR NAVBAR CLICKS (The Fix) ──
+  useEffect(() => {
+    const handleDeckNavigate = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const targetId = customEvent.detail;
+
+      // Find which child component has this ID attached to it
+      const targetIndex = sections.findIndex((child: any) => 
+        child?.props?.id === targetId
+      );
+
+      // Using !isMobile instead of the broken isDesktop variable
+      if (targetIndex !== -1 && !isMobile) {
+        setIsActive(true); // Lock the screen into presentation mode
+        goTo(targetIndex); // Switch the Framer Motion slide
+
+        // Scroll the browser window down to the Pitch Deck so the user sees it
+        if (wrapperRef.current) {
+          const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: wrapperTop, behavior: "smooth" });
+        }
+      }
+    };
+
+    // Cast the function to EventListener to satisfy TypeScript
+    window.addEventListener("deckNavigate", handleDeckNavigate as EventListener);
+    return () => window.removeEventListener("deckNavigate", handleDeckNavigate as EventListener);
+  }, [sections, isMobile, goTo]);
+
+  // 6. Scroll Hijacking logic
   useEffect(() => {
     if (isMobile || !isActive) return;
 
