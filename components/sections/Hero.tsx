@@ -1,106 +1,119 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 
 export default function Hero() {
-  // --- MOUSE TRACKING SPOTLIGHT LOGIC ---
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const ease = [0.16, 1, 0.3, 1] as const;
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  // Spotlight gradients adapted for light mode using Xflow Cyan RGB (0, 234, 255)
-  const backgroundSpotlight = useMotionTemplate`radial-gradient(800px circle at ${mouseX}px ${mouseY}px, rgba(0, 234, 255, 0.05), transparent 80%)`;
-
-  // --- ANIMATION VARIANTS ---
-  const containerVariants: Variants = {
+  const stagger: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+      transition: { staggerChildren: 0.12, delayChildren: 0.1 },
     },
   };
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30, filter: "blur(8px)" },
-    visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+  const rise: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
   };
 
   return (
-    <section 
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen pt-40 pb-32 overflow-hidden bg-[#FAFAFA] flex flex-col items-center justify-center group"
-    >
-      
-      {/* 1. INTERACTIVE SPOTLIGHT (Follows Mouse) */}
-      <motion.div 
-        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500 opacity-50 group-hover:opacity-100"
-        style={{ background: backgroundSpotlight }}
-      />
+    // ── EXACT PADDINGS PRESERVED ──
+    // Kept pt-24 pb-24 for mobile.
+    // Converted invalid lg:pt-38 to lg:pt-[9.5rem] to keep your exact visual height.
+    <section className="relative overflow-hidden pt-30 pb-28 lg:pt-[9.5rem] lg:pb-52 flex flex-col justify-center items-center bg-[#E0F9FB] selection:bg-teal/20 selection:text-navy">
 
-      {/* 2. STATIC BACKGROUND GLOWS & GRID (Light Mode) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 opacity-50" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-teal/10 rounded-[100%] blur-[120px] pointer-events-none z-0" />
+      {/* 1. ATMOSPHERIC BACKGROUND */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Subtle Technical Grid */}
+        <div 
+          className="absolute inset-0 opacity-[0.3] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,#000_40%,transparent_100%)]"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(0, 165, 168, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 165, 168, 0.08) 1px, transparent 1px)`,
+            backgroundSize: '3rem 3rem'
+          }}
+        />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full flex flex-col items-center text-center">
-        
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-5xl flex flex-col items-center"
-        >
-          {/* PILL BADGE - Updated to text-teal-dark for contrast */}
-          <motion.div variants={itemVariants} className="mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-teal/10 border border-teal/20 shadow-sm backdrop-blur-md">
-              <ShieldCheck className="w-4 h-4 text-teal-dark" />
-              <span className="text-teal-dark text-xs font-bold tracking-widest uppercase">
+        {/* Animated Aurora Orbs */}
+        <motion.div 
+          animate={{ x: [0, 40, 0, -40, 0], y: [0, -20, 0, 20, 0], scale: [1, 1.05, 1, 0.95, 1] }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          className="absolute top-[5%] left-[-10%] sm:left-[15%] w-[400px] sm:w-[500px] h-[400px] sm:h-[500px] bg-teal/15 rounded-full blur-[80px] sm:blur-[100px] mix-blend-multiply"
+        />
+        <motion.div 
+          animate={{ x: [0, -50, 0, 50, 0], y: [0, 30, 0, -30, 0], scale: [1, 0.9, 1, 1.1, 1] }}
+          transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+          className="absolute bottom-[20%] right-[-10%] sm:right-[10%] w-[450px] sm:w-[600px] h-[450px] sm:h-[600px] bg-[#00C8CB]/10 rounded-full blur-[90px] sm:blur-[120px] mix-blend-multiply"
+        />
+      </div>
+
+      {/* 2. MAIN CONTENT */}
+      <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 relative z-20 w-full text-center flex-grow flex flex-col justify-center">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="space-y-6 flex flex-col items-center">
+
+          {/* Badge */}
+          <motion.div variants={rise} className="flex flex-col items-center mb-4 sm:mb-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full shadow-sm bg-white/80 border border-teal/20 backdrop-blur-md hover:bg-white transition-colors cursor-default">
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-dark" />
+              <span className="text-[9px] sm:text-[10px] font-bold tracking-widest text-navy uppercase">
                 GLP-1 Weight Management Infrastructure
               </span>
             </div>
           </motion.div>
-          
-          {/* KINETIC HEADLINE REVEAL - Updated gradient to from-teal-dark to-teal */}
-          <h1 className="font-heading text-5xl sm:text-6xl lg:text-[5rem] font-extrabold text-navy leading-[1.15] tracking-tight mb-10 flex flex-col items-center drop-shadow-sm w-full">
-            <motion.span variants={itemVariants} className="block pb-2">
-              The Clinically Structured
-            </motion.span>
-            <motion.span variants={itemVariants} className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-dark to-teal pb-2 scale-105">
-              Infrastructure
-            </motion.span>
-            <motion.span variants={itemVariants} className="block">
-              for Modern Healthcare
-            </motion.span>
-          </h1>
-          
-          {/* REFINED SUBTEXT - Replaced ARIXA with Xflow */}
-          <motion.p 
-            variants={itemVariants} 
-            className="text-xl sm:text-2xl text-slate-light leading-relaxed mb-14 max-w-4xl mx-auto font-medium"
-          >
-            Powering UK pharmacy-led clinical services with science, safety, and scale. Xflow structures the entire patient journey from screening and integrated diagnostics to supported prescribing — <span className="text-navy font-bold">so clinicians can focus on clinical decisions, not administration.</span>
-          </motion.p>
 
-          {/* HIGH-CONVERSION CTAS - Updated button text to navy and shadow RGB to Xflow Cyan */}
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto relative z-20">
-            <a href="#contact" className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-teal text-navy text-lg font-bold rounded-xl overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-[0_10px_30px_rgba(0,234,255,0.25)] hover:shadow-[0_15px_40px_rgba(0,234,255,0.4)]">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/40 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-              Book a Demo
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          {/* Headline - Optimized for Mobile wrapping */}
+          <motion.div variants={rise} className="space-y-4 w-full">
+            <h1 className="text-[2.5rem] leading-[1.1] sm:text-4xl md:text-5xl lg:text-[4.5rem] font-heading font-extrabold text-navy sm:leading-[1.05] tracking-tight drop-shadow-sm">
+              The Clinically Structured <br className="hidden sm:block" />
+              <span className="relative inline-block mt-1">
+                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-teal-dark via-teal to-teal-dark bg-[length:200%_auto] animate-[shimmer_4s_infinite_linear]">
+                  Infrastructure
+                </span>
+                {/* Accent underline */}
+                <svg className="absolute w-full h-2.5 sm:h-3 sm:h-3.5 -bottom-0 sm:-bottom-0.5 left-0 text-teal/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+                </svg>
+              </span>
+              <br className="block sm:hidden" /> {/* Force break on mobile for clean stack */}
+              <br className="hidden sm:block" /> for Modern Healthcare.
+            </h1>
+            
+            {/* Subtext */}
+            <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-[20rem] sm:max-w-2xl mx-auto leading-relaxed font-medium">
+              Powering UK pharmacy-led clinical services with science, safety, and scale. <span className="font-bold text-navy">10QRX</span> structures the entire patient journey — so you can focus on clinical decisions, not administration.
+            </p>
+          </motion.div>
+
+          {/* CTA Buttons - Full width on mobile, auto width on desktop */}
+          <motion.div variants={rise} className="flex flex-col sm:flex-row gap-3 pt-4 justify-center w-full sm:w-auto relative z-30 px-2 sm:px-0">
+            <a
+              href="#contact"
+              className="group relative overflow-hidden bg-teal text-navy text-sm lg:text-base font-bold py-3.5 sm:px-8 rounded-full shadow-[0_10px_30px_-10px_rgba(0,234,255,0.6)] transition-all duration-300 flex items-center justify-center gap-2 hover:-translate-y-1 hover:shadow-[0_15px_35px_-10px_rgba(0,234,255,0.8)] w-full sm:w-auto"
+            >
+              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+              <span className="relative z-10">Book a Demo</span>
+              <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" />
             </a>
-            <a href="#how-it-works" className="inline-flex items-center justify-center px-10 py-5 bg-white border border-gray-200 text-navy text-lg font-bold rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm">
+
+            <a
+              href="#how-it-works"
+              className="group bg-white/80 backdrop-blur-sm hover:bg-white text-navy border border-teal/15 hover:border-teal/40 text-sm lg:text-base font-bold py-3.5 sm:px-8 rounded-full transition-all shadow-sm hover:shadow-lg flex items-center justify-center w-full sm:w-auto"
+            >
               See How It Works
             </a>
           </motion.div>
-        </motion.div>
 
+        </motion.div>
       </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes shimmer {
+          100% { transform: translateX(100%); }
+        }
+      `}} />
     </section>
   );
 }

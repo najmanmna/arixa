@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { BrainCircuit, ShieldCheck, Activity } from "lucide-react";
+import { BrainCircuit, ShieldCheck, Activity, GraduationCap } from "lucide-react";
 
 const phases = [
   {
@@ -13,7 +13,7 @@ const phases = [
   {
     title: "Phase 2: Structured Taper",
     months: "Months 11–12",
-    description: "Gradual dose reduction with structured check-ins via the Xflow patient pathway. Symptom monitoring and clinical support.",
+    description: "Gradual dose reduction with structured check-ins via the 10QRX patient pathway. Symptom monitoring and clinical support.",
   },
   {
     title: "Phase 3: Maintenance Support",
@@ -30,14 +30,20 @@ export default function ReboundPrevention() {
 
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
   return (
-    <section id="rebound-prevention" className="py-24 px-6 lg:px-8 bg-white relative overflow-hidden">
+    <section id="rebound-prevention" className="py-24 lg:py-32 px-6 lg:px-8 bg-gradient-to-b from-white to-[#E0F9FB]/40 relative overflow-hidden">
       
-      {/* Background Graphic */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-teal-subtle/50 to-transparent rounded-bl-[100px] pointer-events-none -z-10" />
+      {/* ── ATMOSPHERIC BACKGROUND ── */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal/5 rounded-full blur-[120px] translate-x-1/4 -translate-y-1/4 pointer-events-none" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #0B2545 1.5px, transparent 1.5px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
 
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-16 items-center">
         
@@ -47,10 +53,10 @@ export default function ReboundPrevention() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-50 border border-teal-100 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-teal/15 shadow-sm backdrop-blur-md mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-teal animate-pulse" />
-            <span className="text-teal-dark text-[10px] font-bold tracking-widest uppercase">The Clinical Gap</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-teal shadow-[0_0_5px_rgba(0,234,255,0.8)] animate-pulse" />
+            <span className="text-navy text-[10px] font-extrabold tracking-widest uppercase">The Clinical Gap</span>
           </motion.div>
 
           <motion.h2 
@@ -58,11 +64,10 @@ export default function ReboundPrevention() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-heading text-4xl md:text-5xl font-extrabold text-navy tracking-tight mb-6 leading-tight"
+            className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-navy tracking-tight mb-8 leading-[1.1]"
           >
             Beyond the Prescription. <br />
-            {/* Updated gradient to from-teal-dark to-teal for white background legibility */}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-dark to-teal">Structured Support.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-dark via-teal to-teal-dark">Structured Support.</span>
           </motion.h2>
           
           <motion.p 
@@ -70,9 +75,9 @@ export default function ReboundPrevention() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-light text-lg leading-relaxed mb-8"
+            className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed mb-10"
           >
-            Most providers lack structured off-boarding when treatment ends. Xflow integrates evidence-based rebound prevention protocols into the patient journey, supporting long-term sustainability.
+            Most providers lack structured off-boarding when treatment ends. 10QRX integrates evidence-based rebound prevention protocols into the patient journey, supporting long-term sustainability.
           </motion.p>
 
           {/* Compliant Capability Highlights */}
@@ -83,19 +88,18 @@ export default function ReboundPrevention() {
             transition={{ delay: 0.3 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-teal-subtle flex items-center justify-center flex-shrink-0">
-                {/* Updated to text-teal-dark */}
-                <BrainCircuit className="w-5 h-5 text-teal-dark" />
+            <div className="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-navy flex items-center justify-center flex-shrink-0 shadow-md">
+                <BrainCircuit className="w-6 h-6 text-teal drop-shadow-[0_0_5px_rgba(0,234,255,0.4)]" />
               </div>
               <div>
                 <div className="text-sm font-heading font-extrabold text-navy">Psychology-Led</div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Behavioural Tools</div>
               </div>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center flex-shrink-0">
-                <Activity className="w-5 h-5 text-indigo-500" />
+            <div className="bg-white/60 backdrop-blur-md rounded-2xl p-5 border border-white shadow-sm flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-navy flex items-center justify-center flex-shrink-0 shadow-md">
+                <Activity className="w-6 h-6 text-teal drop-shadow-[0_0_5px_rgba(0,234,255,0.4)]" />
               </div>
               <div>
                 <div className="text-sm font-heading font-extrabold text-navy">Sustainable</div>
@@ -111,32 +115,30 @@ export default function ReboundPrevention() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="w-full lg:w-7/12 bg-gray-50 rounded-3xl p-8 lg:p-12 border border-gray-200 relative"
+          className="w-full lg:w-7/12 bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-8 lg:p-12 border border-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative"
         >
           {/* Vertical Track Line */}
-          <div className="absolute left-[51px] lg:left-[67px] top-12 bottom-12 w-px bg-gray-200" />
+          <div className="absolute left-[51px] lg:left-[67px] top-16 bottom-16 w-px bg-slate-200" />
 
-          <div className="space-y-10 relative z-10">
+          <div className="space-y-12 relative z-10">
             {phases.map((phase, idx) => (
-              <motion.div key={idx} variants={itemVariants} className="flex gap-6 group">
+              <motion.div key={idx} variants={itemVariants} className="flex gap-8 group">
                 {/* Node */}
                 <div className="flex-shrink-0 relative">
-                  {/* Updated hover shadow RGB to Xflow Electric Cyan */}
-                  <div className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center group-hover:border-teal group-hover:shadow-[0_0_15px_rgba(0,234,255,0.3)] transition-all duration-300">
-                     {/* Updated text-teal to text-teal-dark */}
-                     <span className="font-heading font-bold text-navy group-hover:text-teal-dark transition-colors">0{idx + 1}</span>
+                  <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-navy border border-navy flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(0,234,255,0.4)]">
+                     <span className="font-heading font-bold text-teal transition-colors text-lg">0{idx + 1}</span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="pt-2">
-                  <div className="flex items-center gap-3 mb-1.5">
-                    <h3 className="font-heading font-bold text-xl text-navy">{phase.title}</h3>
-                    <span className="px-2.5 py-1 rounded-md bg-white border border-gray-200 text-[10px] font-bold text-slate-500 uppercase tracking-wider shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3">
+                    <h3 className="font-heading font-bold text-xl lg:text-2xl text-navy">{phase.title}</h3>
+                    <span className="inline-flex px-3 py-1 rounded-full bg-white border border-teal/15 text-[10px] font-bold text-teal-dark uppercase tracking-widest shadow-sm self-start sm:self-center">
                       {phase.months}
                     </span>
                   </div>
-                  <p className="text-slate-light text-sm leading-relaxed max-w-md">
+                  <p className="text-slate-600 font-medium text-sm lg:text-base leading-relaxed max-w-md">
                     {phase.description}
                   </p>
                 </div>
@@ -145,10 +147,11 @@ export default function ReboundPrevention() {
           </div>
           
           {/* Bottom badge */}
-          <motion.div variants={itemVariants} className="mt-10 pt-6 border-t border-gray-200 flex items-center gap-3">
-             {/* Updated to text-teal-dark */}
-             <ShieldCheck className="w-5 h-5 text-teal-dark" />
-             <span className="text-sm font-semibold text-slate">Designed by Dr. Neesha Patel, Clinical Psychologist (HCPC)</span>
+          <motion.div variants={itemVariants} className="mt-12 pt-8 border-t border-slate-200/50 flex items-center gap-4">
+             <div className="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center">
+               <GraduationCap className="w-5 h-5 text-teal-dark" />
+             </div>
+             <span className="text-sm font-bold text-navy">Designed by Dr. Neesha Patel, Clinical Psychologist (HCPC)</span>
           </motion.div>
         </motion.div>
 

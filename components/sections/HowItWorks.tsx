@@ -5,12 +5,12 @@ import { Activity, Stethoscope, ShieldCheck, CheckCircle2, FileText, CreditCard,
 import React, { useState, useEffect, useRef } from "react";
 
 const workflowSteps = [
-  { label: "Screening",   icon: ClipboardList, color: "teal" },
-  { label: "Assessment",  icon: FileText,       color: "teal" },
-  { label: "Diagnostics", icon: Syringe,        color: "teal" },
-  { label: "Dashboard",   icon: LayoutDashboard,color: "teal" },
-  { label: "Consent",     icon: CheckCircle2,   color: "teal" },
-  { label: "Checkout",    icon: CreditCard,      color: "teal" },
+  { label: "Screening",   icon: ClipboardList },
+  { label: "Assessment",  icon: FileText },
+  { label: "Diagnostics", icon: Syringe },
+  { label: "Dashboard",   icon: LayoutDashboard },
+  { label: "Consent",     icon: CheckCircle2 },
+  { label: "Checkout",    icon: CreditCard },
 ];
 
 const complianceBadges = [
@@ -33,8 +33,7 @@ export default function HowItWorks() {
     mouseY.set(e.clientY - rect.top);
   }
 
-  // Updated to Xflow Electric Cyan (0, 234, 255)
-  const cardSpotlight = useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, rgba(0,234,255,0.055), transparent 75%)`;
+  const cardSpotlight = useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, rgba(0,234,255,0.06), transparent 80%)`;
 
   const [activeStep, setActiveStep] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
@@ -52,249 +51,97 @@ export default function HowItWorks() {
       id="how-it-works"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative py-28 px-6 lg:px-8 bg-[#F8FAFB] overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-center py-12 lg:py-16 bg-[#01021C] overflow-hidden"
     >
-      {/* Background grid */}
       <div className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(0,234,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,234,255,0.035) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
         }}
       />
-      {/* Ambient orbs */}
-      <div className="absolute top-[-8%] left-[-5%] w-[480px] h-[480px] bg-teal/5 rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-[5%] right-[-6%] w-[380px] h-[380px] bg-indigo-500/4 rounded-full blur-[100px] pointer-events-none" />
+      <motion.div className="absolute inset-0 pointer-events-none z-0 mix-blend-screen" style={{ background: cardSpotlight }} />
 
-      {/* Global mouse spotlight */}
-      <motion.div className="absolute inset-0 pointer-events-none z-0" style={{ background: cardSpotlight }} />
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-
-        {/* ── HEADER ── */}
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-teal/20 bg-teal/5 mb-5"
-          >
+        <div className="text-center mb-8 max-w-3xl mx-auto">
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-teal/20 bg-teal/5 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />
-            <span className="text-teal-dark text-[10px] font-extrabold tracking-[0.18em] uppercase">How It Works</span>
+            <span className="text-teal text-[9px] font-bold tracking-[0.2em] uppercase">Process Architecture</span>
           </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-[#0B1D3A] leading-[1.1] tracking-tight mb-5"
-          >
-            Three Layers. One Platform.{" "}
-            <span className="relative inline-block mt-2 sm:mt-0">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-dark via-teal to-teal-light">
-                Zero Chaos.
-              </span>
-              <motion.span
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.65, duration: 0.7, ease: "easeOut" }}
-                className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-teal-dark to-teal origin-left block"
-              />
-            </span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-500 text-lg leading-relaxed"
-          >
-            Every touchpoint — patient, prescriber, compliance — unified in one structured architecture.
-          </motion.p>
+          <h2 className="font-heading text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+            Three Layers. <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-light via-teal to-teal">Zero Chaos.</span>
+          </h2>
         </div>
 
-        {/* ── BENTO GRID ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-[minmax(280px,auto)] group/grid">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 auto-rows-auto">
 
-          {/* ── CARD 1: Patient Workflow ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="md:col-span-2 relative bg-white border border-gray-200/80 rounded-[1.75rem] p-8 lg:p-10 flex flex-col overflow-hidden
-                       hover:border-teal/40 hover:shadow-[0_24px_50px_-16px_rgba(0,234,255,0.18)] hover:-translate-y-1.5
-                       hover:!opacity-100 group-hover/grid:opacity-60 transition-all duration-500 group/card"
-          >
-            <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none"
-              style={{ background: "radial-gradient(500px circle at 30% 60%, rgba(0,234,255,0.05), transparent 70%)" }} />
-            <motion.div
-              initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.35, duration: 0.6 }}
-              className="absolute top-0 left-10 right-10 h-[2px] bg-gradient-to-r from-transparent via-teal/40 to-transparent origin-center"
-            />
-
-            <div className="flex items-center gap-4 mb-5 relative z-10">
-              <div className="w-12 h-12 rounded-xl bg-teal/5 border border-teal/15 flex items-center justify-center text-teal-dark group-hover/card:scale-110 group-hover/card:bg-teal/10 transition-all duration-500">
-                <Activity className="w-5 h-5" />
+          {/* CARD 1: Patient Workflow */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="md:col-span-2 relative bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-6 lg:p-8 flex flex-col overflow-hidden group/card">
+            <div className="flex items-center gap-4 mb-4 relative z-10">
+              <div className="w-10 h-10 rounded-xl bg-[#020438] border border-white/10 flex items-center justify-center text-teal">
+                <Activity className="w-4 h-4" />
               </div>
-              <div>
-                <h3 className="font-heading text-xl font-bold text-[#0B1D3A] leading-tight">Structures the patient journey</h3>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Layer 1: Patient Pathway</p>
-              </div>
+              <h3 className="font-heading text-lg font-bold text-white">1. Patient Pathway</h3>
             </div>
-
-            <p className="text-slate-500 leading-relaxed mb-8 max-w-xl relative z-10 text-[0.95rem]">
-              From initial enquiry through eligibility screening, MHRA-aligned assessments, API-integrated blood diagnostics via London Medical Laboratory, consent capture, and checkout — one seamless digital pathway. <span className="font-semibold text-navy">The patient never leaves your brand.</span>
+            <p className="text-slate-400 font-medium text-xs lg:text-sm leading-relaxed mb-6 max-w-xl relative z-10">
+              MHRA-aligned assessments and API-integrated blood diagnostics via London Medical Laboratory. One seamless digital journey where the patient never leaves your brand.
             </p>
 
-            {/* Animated pipeline */}
-            <div className="mt-auto relative z-10">
-              <div className="hidden sm:block absolute top-[22px] left-0 right-0 h-px bg-gray-100 z-0" />
-
-              <div
-                className="flex flex-wrap sm:flex-nowrap gap-3 sm:gap-0 sm:justify-between cursor-pointer select-none"
-                onClick={() => setIsRunning((r) => !r)}
-                title={isRunning ? "Pause" : "Resume"}
-              >
-                {workflowSteps.map((step, i) => {
-                  const isActive = activeStep === i;
-                  const isPast = i < activeStep;
-                  const Icon = step.icon;
-                  return (
-                    <div key={step.label} className="flex flex-col items-center gap-2 relative z-10 sm:flex-1">
-                      <motion.div
-                        animate={isActive ? { scale: [1, 1.12, 1], boxShadow: ["0 0 0px rgba(0,234,255,0)", "0 0 18px rgba(0,234,255,0.45)", "0 0 8px rgba(0,234,255,0.3)"] } : {}}
-                        transition={{ duration: 0.5 }}
-                        className={`w-11 h-11 rounded-xl border-2 flex items-center justify-center transition-all duration-400 ${
-                          isActive
-                            ? "bg-teal border-teal text-navy shadow-[0_0_20px_rgba(0,234,255,0.5)]"
-                            : isPast
-                            ? "bg-teal-subtle border-teal/30 text-teal-dark"
-                            : "bg-white border-gray-200 text-slate-300"
-                        }`}
-                      >
-                        <Icon className="w-4 h-4" />
-                      </motion.div>
-
-                      <AnimatePresence mode="wait">
-                        <span
-                          className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-400 text-center leading-tight ${
-                            isActive ? "text-teal-dark" : isPast ? "text-teal-dark/60" : "text-slate-300"
-                          }`}
-                        >
-                          {step.label}
-                        </span>
-                      </AnimatePresence>
+            <div className="mt-auto relative z-10 pt-4">
+              <div className="hidden sm:block absolute top-[18px] left-0 right-0 h-[1px] bg-white/5 z-0" />
+              <div className="flex justify-between cursor-pointer select-none" onClick={() => setIsRunning(!isRunning)}>
+                {workflowSteps.map((step, i) => (
+                  <div key={i} className="flex flex-col items-center gap-2 relative z-10 flex-1">
+                    <div className={`w-9 h-9 rounded-lg border flex items-center justify-center transition-all duration-300 ${activeStep === i ? "bg-teal border-teal text-navy scale-110 shadow-[0_0_15px_rgba(0,234,255,0.6)]" : i < activeStep ? "bg-teal/10 border-teal/20 text-teal" : "bg-[#01021C] border-white/10 text-slate-600"}`}>
+                      <step.icon className="w-3.5 h-3.5" />
                     </div>
-                  );
-                })}
+                    <span className={`text-[8px] font-bold uppercase tracking-tighter ${activeStep === i ? "text-teal" : "text-slate-600"}`}>{step.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
 
-          {/* ── CARD 2: Prescriber Decision (Kept dark for contrast) ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
-            className="relative bg-[#01021C] text-white rounded-[1.75rem] p-8 lg:p-10 flex flex-col shadow-xl overflow-hidden
-                       hover:shadow-[0_24px_50px_-16px_rgba(0,234,255,0.35)] hover:-translate-y-1.5
-                       hover:!opacity-100 group-hover/grid:opacity-60 transition-all duration-500 group/card"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_90%_90%,rgba(0,234,255,0.18),transparent_65%)] pointer-events-none" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_10%_10%,rgba(99,102,241,0.08),transparent_60%)] pointer-events-none" />
-            <motion.div
-              initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.45, duration: 0.6 }}
-              className="absolute top-0 left-10 right-10 h-[2px] bg-gradient-to-r from-transparent via-teal/50 to-transparent origin-center"
-            />
-            <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
-              style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
-
-            <div className="relative z-10 flex flex-col h-full">
-              <div className="flex items-center gap-4 mb-5">
-                <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center group-hover/card:scale-110 group-hover/card:bg-white/15 transition-all duration-500">
-                  <Stethoscope className="w-5 h-5 text-teal" />
-                </div>
-                <div>
-                  <h3 className="font-heading text-xl font-bold text-white leading-tight">Structured clinical summaries</h3>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">Layer 2: Decision Support</p>
-                </div>
+          {/* CARD 2: Prescriber Decision */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="relative bg-gradient-to-br from-[#020438] to-[#1A1D4E] text-white rounded-3xl p-6 lg:p-8 flex flex-col border border-white/10">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-teal">
+                <Stethoscope className="w-4 h-4" />
               </div>
-
-              <p className="text-slate-400 text-[0.95rem] leading-relaxed mb-8 flex-grow">
-                Compresses patient data into a structured clinical summary designed to support prescriber decision-making. <span className="text-white font-medium">Clinical judgement remains entirely with the prescriber</span> — Xflow provides the structure, not the decision.
-              </p>
-
-              {/* Replaced Timing Bar with compliant 'Decision Support' visual */}
-              <div className="mt-auto bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4 backdrop-blur-sm">
-                <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Prescriber Autonomy</span>
-                  <span className="text-xs font-bold text-teal">100% Retained</span>
+              <h3 className="font-heading text-lg font-bold text-white">2. Decision Support</h3>
+            </div>
+            <p className="text-slate-300 text-xs font-medium leading-relaxed mb-6">
+              Compresses data into structured summaries. Clinical judgement remains entirely with the prescriber — 10QRX provides the structure, not the decision.
+            </p>
+            <div className="mt-auto bg-[#01021C]/40 border border-white/5 rounded-xl p-4 space-y-3">
+              {["Prescriber Autonomy: 100%", "Data: Standardised", "Clinical Insights: Prioritised"].map((text, i) => (
+                <div key={i} className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-slate-500">
+                  <span>{text.split(': ')[0]}</span>
+                  <span className="text-white">{text.split(': ')[1]}</span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Data Presentation</span>
-                  <span className="text-xs font-bold text-white">Standardised</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Clinical Insights</span>
-                  <span className="text-xs font-bold text-white">Prioritised</span>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* ── CARD 3: Governance Backbone ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35 }}
-            className="md:col-span-3 relative bg-white border border-gray-200/80 rounded-[1.75rem] p-8 lg:p-10 flex flex-col md:flex-row items-center gap-8 lg:gap-16 overflow-hidden
-                       hover:border-teal/40 hover:shadow-[0_24px_50px_-16px_rgba(0,234,255,0.18)] hover:-translate-y-1.5
-                       hover:!opacity-100 group-hover/grid:opacity-60 transition-all duration-500 group/card"
-          >
-            <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none"
-              style={{ background: "radial-gradient(600px circle at 20% 50%, rgba(0,234,255,0.04), transparent 70%)" }} />
-            <motion.div
-              initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.55, duration: 0.7 }}
-              className="absolute top-0 left-10 right-10 h-[2px] bg-gradient-to-r from-transparent via-navy/20 to-transparent origin-center"
-            />
-
-            {/* Left text */}
-            <div className="flex-1 relative z-10">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-[#0B1D3A]/6 border border-[#0B1D3A]/10 flex items-center justify-center group-hover/card:scale-110 group-hover/card:bg-[#0B1D3A]/10 transition-all duration-500">
-                  <ShieldCheck className="w-5 h-5 text-[#0B1D3A]" />
+          {/* CARD 3: Governance Backbone */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="md:col-span-3 relative bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl p-6 lg:p-8 flex flex-col md:flex-row items-center gap-6 lg:gap-12 overflow-hidden">
+            <div className="flex-1">
+              <div className="flex items-center gap-4 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[#020438] border border-white/10 flex items-center justify-center text-teal">
+                  <ShieldCheck className="w-4 h-4" />
                 </div>
-                <div>
-                  <h3 className="font-heading text-xl font-bold text-[#0B1D3A] leading-tight">Infrastructure built to support compliance.</h3>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Layer 3: Governance Support</p>
-                </div>
+                <h3 className="font-heading text-lg font-bold text-white">3. Governance Support</h3>
               </div>
-              <p className="text-slate-500 text-[0.95rem] leading-relaxed max-w-2xl">
-                Every action timestamped, every workflow structured for regulatory alignment, every record designed to be audit-ready. Documentation and monitoring infrastructure built to support GPhC, CQC, MHRA, and UK GDPR requirements — designed to simplify inspection preparation from day one.
+              <p className="text-slate-400 font-medium text-xs leading-relaxed max-w-2xl">
+                Infrastructure built to support GPhC, CQC, MHRA, and UK GDPR requirements. Every action timestamped and audit-ready from day one to simplify inspection preparation.
               </p>
             </div>
-
-            {/* Compliance badges */}
-            <div className="flex flex-wrap md:flex-nowrap items-stretch justify-center gap-3 w-full md:w-auto relative z-10">
-              {complianceBadges.map(({ label, desc }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 + i * 0.08 }}
-                  className="group/badge flex flex-col items-center justify-center px-6 py-4 bg-[#F8FAFB] border border-gray-100 rounded-2xl
-                             hover:border-teal/30 hover:bg-teal/5 hover:shadow-[0_8px_24px_-8px_rgba(0,234,255,0.18)] hover:-translate-y-1
-                             transition-all duration-300 cursor-default min-w-[80px]"
-                >
-                  <span className="text-sm font-extrabold text-[#0B1D3A] tracking-wide group-hover/badge:text-teal-dark transition-colors duration-300">{label}</span>
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mt-1 text-center leading-tight">{desc}</span>
-                </motion.div>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {complianceBadges.map((badge, i) => (
+                <div key={i} className="flex flex-col items-center justify-center px-3 py-2 bg-white/5 border border-white/10 rounded-xl min-w-[85px]">
+                  <span className="text-[10px] font-bold text-white">{badge.label}</span>
+                  <span className="text-[7px] font-bold uppercase tracking-widest text-slate-500">{badge.desc}</span>
+                </div>
               ))}
             </div>
           </motion.div>

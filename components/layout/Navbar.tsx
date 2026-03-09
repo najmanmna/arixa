@@ -61,7 +61,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 group relative z-50">
             <span className="inline-block w-4 h-4 bg-teal rounded-sm transition-transform group-hover:rotate-45 duration-300"></span>
             <span className="font-heading font-extrabold text-2xl tracking-tight text-navy transition-colors duration-300">
-              Xflow
+              10QRX
             </span>
             <span className="text-[10px] font-bold tracking-[0.2em] ml-1 mt-1 text-slate-light transition-colors duration-300">
               HEALTH
@@ -75,10 +75,12 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="text-sm font-bold text-slate hover:text-teal transition-colors relative group tracking-wide cursor-pointer"
+                /* Updated hover text to text-teal-dark for light mode legibility */
+                className="text-sm font-bold text-slate hover:text-teal-dark transition-colors relative group tracking-wide cursor-pointer"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-teal transition-all duration-300 group-hover:w-full rounded-full"></span>
+                {/* Updated underline to bg-teal-dark */}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-teal-dark transition-all duration-300 group-hover:w-full rounded-full"></span>
               </a>
             ))}
           </nav>
@@ -88,9 +90,10 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="inline-flex items-center px-6 py-2.5 bg-teal text-navy text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,165,168,0.2)] hover:shadow-[0_8px_20px_rgba(0,165,168,0.3)] cursor-pointer"
+              /* Updated shadow RGB to 10QRX Electric Cyan */
+              className="inline-flex items-center px-6 py-2.5 bg-teal text-navy text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,234,255,0.25)] hover:shadow-[0_8px_20px_rgba(0,234,255,0.4)] cursor-pointer"
             >
-              Book Demo
+              Book a Demo
             </a>
           </div>
 
@@ -121,7 +124,8 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block text-navy font-heading font-bold text-2xl hover:text-teal transition-colors cursor-pointer"
+                  /* Updated hover text to text-teal-dark */
+                  className="block text-navy font-heading font-bold text-2xl hover:text-teal-dark transition-colors cursor-pointer"
                 >
                   {link.name}
                 </a>
@@ -130,7 +134,7 @@ export default function Navbar() {
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, "#contact")}
-                  className="block w-full text-center px-6 py-4 bg-teal text-navy font-bold text-lg rounded-xl shadow-md cursor-pointer"
+                  className="block w-full text-center px-6 py-4 bg-teal hover:bg-teal-light text-navy font-bold text-lg rounded-xl shadow-[0_5px_15px_rgba(0,234,255,0.25)] transition-all cursor-pointer"
                 >
                   Book a Demo
                 </a>

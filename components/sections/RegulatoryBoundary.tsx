@@ -9,12 +9,12 @@ const boundaries = [
   {
     icon: ServerCog,
     title: "Workflow & documentation infrastructure",
-    description: "Xflow is not a medical device. It is a workflow and documentation infrastructure designed to support clinicians and regulated care environments.",
+    description: "10QRX is not a medical device. It is a workflow and documentation infrastructure designed to support clinicians and regulated care environments.",
   },
   {
     icon: UserCheck,
     title: "Professional judgement stays with practitioners",
-    description: "Xflow is not a diagnostic AI. Clinical decisions, prescribing, and patient care are always executed by qualified professionals.",
+    description: "10QRX is not a diagnostic AI. Clinical decisions, prescribing, and patient care are always executed by qualified professionals.",
   },
   {
     icon: Scale,
@@ -24,7 +24,6 @@ const boundaries = [
 ];
 
 export default function RegulatoryBoundary() {
-  // --- MOUSE TRACKING SPOTLIGHT (Light Theme) ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -34,79 +33,83 @@ export default function RegulatoryBoundary() {
     mouseY.set(clientY - top);
   }
 
-  // Soft spotlight that glides over the white cards - Updated to Xflow Electric Cyan (0, 234, 255)
-  const cardSpotlight = useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(0, 234, 255, 0.04), transparent 80%)`;
+  const cardSpotlight = useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, rgba(0, 234, 255, 0.04), transparent 80%)`;
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
-    visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
   return (
+    // Slide Optimization: min-h-screen + flex justify-center
     <section 
       onMouseMove={handleMouseMove}
-      className="py-24 px-6 lg:px-8 bg-slate-50 relative overflow-hidden group/section border-t border-gray-200/50"
+      className="min-h-screen w-full flex flex-col justify-center py-12 lg:py-16 bg-gradient-to-b from-white to-[#E0F9FB]/30 relative overflow-hidden group/section border-t border-slate-100"
     >
-      <div className="max-w-6xl mx-auto relative z-10">
+      {/* ── ATMOSPHERIC BACKGROUND ── */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #0B2545 1.5px, transparent 1.5px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
         
-        {/* HEADER */}
+        {/* HEADER (Optimised Spacing) */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
+          initial={{ opacity: 0, y: 15 }} 
           whileInView={{ opacity: 1, y: 0 }} 
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          {/* Updated to text-teal-dark for contrast against the light gray background */}
-          <p className="text-teal-dark text-xs font-bold tracking-[0.2em] uppercase mb-4">
-            Operational Boundaries
-          </p>
-          <h3 className="font-heading text-4xl sm:text-5xl font-extrabold text-navy tracking-tight">
-            What Xflow Is <br className="sm:hidden" />
-            <span className="text-slate-300 mx-3">—</span> 
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-teal/15 shadow-sm backdrop-blur-md mb-6">
+            <Scale className="w-3.5 h-3.5 text-teal-dark" />
+            <span className="text-navy text-[10px] font-bold tracking-widest uppercase">Operational Boundaries</span>
+          </div>
+          
+          <h3 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-navy tracking-tight leading-[1.1]">
+            What 10QRX Is <br className="sm:hidden" />
+            <span className="text-slate-300 mx-3 hidden sm:inline">—</span> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-400 to-slate-500 font-light italic">and Isn't</span>
           </h3>
         </motion.div>
 
-        {/* BOUNDARIES GRID */}
-        {/* group/grid handles the focus dimming on hover */}
+        {/* BOUNDARIES GRID (High Density) */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 group/grid"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 group/grid"
         >
           {boundaries.map((item, idx) => (
             <motion.div 
               key={idx}
               variants={itemVariants}
-              /* Updated hover shadow RGB to Xflow Electric Cyan */
-              className="relative bg-white rounded-[2rem] p-8 lg:p-10 border border-gray-200/60 shadow-sm overflow-hidden group/card hover:shadow-[0_20px_40px_-15px_rgba(0,234,255,0.15)] hover:-translate-y-1 hover:border-teal/30 hover:!opacity-100 group-hover/grid:opacity-50 transition-all duration-500"
+              className="relative bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 lg:p-8 border border-white shadow-sm overflow-hidden hover:bg-white/80 hover:border-teal/30 hover:shadow-[0_15px_35px_-10px_rgba(0,165,168,0.15)] hover:-translate-y-1 transition-all duration-500"
             >
-              {/* Interactive Soft Shimmer */}
               <motion.div 
-                className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"
+                className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 mix-blend-multiply"
                 style={{ background: cardSpotlight }}
               />
 
-              {/* Kinetic Left Accent Line - Updated gradient for white background legibility */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/3 bg-gray-100 rounded-r-full group-hover/card:h-2/3 group-hover/card:bg-gradient-to-b group-hover/card:from-teal group-hover/card:to-teal-dark transition-all duration-500 ease-out" />
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1/4 bg-slate-100 rounded-r-full group-hover/card:h-2/3 group-hover/card:bg-gradient-to-b group-hover/card:from-teal group-hover/card:to-teal-dark transition-all duration-500" />
               
               <div className="relative z-10">
-                {/* Updated hover icon to text-teal-dark */}
-                <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-gray-100 flex items-center justify-center mb-8 text-navy group-hover/card:text-teal-dark group-hover/card:bg-teal/5 group-hover/card:border-teal/20 group-hover/card:scale-110 transition-all duration-500 shadow-sm">
-                   <item.icon className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-xl bg-navy border border-navy shadow-md flex items-center justify-center mb-6 group-hover/card:scale-110 transition-all duration-500">
+                   <item.icon className="w-5 h-5 text-teal drop-shadow-[0_0_8px_rgba(0,234,255,0.6)]" />
                 </div>
                 
-                <h4 className="font-heading font-bold text-navy text-xl mb-4 leading-snug">
+                <h4 className="font-heading font-bold text-navy text-lg lg:text-xl mb-3 leading-tight">
                   {item.title}
                 </h4>
-                <p className="text-slate-light text-sm md:text-base leading-relaxed">
+                <p className="text-slate-600 font-medium text-xs lg:text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
