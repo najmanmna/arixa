@@ -26,7 +26,7 @@ export default function Home() {
       </div>
 
       {/* ── 2. THE 10QRX DECK (Presentation Mode) ── */}
-      <PitchDeckWrapper>
+      {/* <PitchDeckWrapper> */}
         {/* Removed h-full so natural scrolling works inside the slide */}
         <div id="who" className="w-full"><WhoIsThisFor /></div>
         <div id="economics" className="w-full"><Economics /></div>
@@ -36,7 +36,7 @@ export default function Home() {
         <div id="compliance" className="w-full"><Compliance /></div>
         <div id="social" className="w-full"><SocialProof /></div>
         <div id="regulatory" className="w-full"><RegulatoryBoundary /></div>
-      </PitchDeckWrapper>
+      {/* </PitchDeckWrapper> */}
 
       {/* ── 3. OUTRO (Standard Scroll) ── */}
       <div className="relative z-20 bg-white">

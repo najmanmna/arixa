@@ -12,7 +12,8 @@
 
   --color-teal: #00EAFF;          /* Electric Cyan - Primary Accent & Buttons */
   --color-teal-light: #80F4FF;    /* Glows / Highlights */
-  --color-teal-dark: #0093A3;     /* NEW: Readable deep cyan for text on white backgrounds */
+  --color-teal-dark: #51a2ff
+;     /* NEW: Readable deep cyan for text on white backgrounds */
   --color-teal-subtle: #E0F9FB;   /* Surface Cyan / Soft Backgrounds */
 
   --color-slate: #334155;         /* Body Text */

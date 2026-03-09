@@ -88,10 +88,10 @@ export default function Hero() {
             <h1 className="text-[2.5rem] leading-[1.1] sm:text-4xl md:text-5xl lg:text-[4.5rem] font-heading font-extrabold text-navy sm:leading-[1.05] tracking-tight drop-shadow-sm">
               The #1 Weight Loss <br className="hidden sm:block" />
               <span className="relative inline-block mt-1">
-                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-teal-dark via-teal to-teal-dark bg-[length:200%_auto] animate-[shimmer_4s_infinite_linear] pb-1">
+                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal to-blue-400 bg-[length:200%_auto] animate-[shimmer_4s_infinite_linear] pb-1">
                   Operating System
                 </span>
-                <svg className="absolute w-full h-2.5 sm:h-3 sm:h-3.5 -bottom-0.5 sm:-bottom-0.5 left-0 text-teal/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <svg className="absolute w-full h-2.5 sm:h-3 sm:h-3.5 -bottom-0.5 sm:-bottom-0.5 left-0 text-blue-300/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                   <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
                 </svg>
               </span>
