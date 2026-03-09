@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -15,6 +16,9 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -23,16 +27,21 @@ export default function Navbar() {
   }, []);
 
   // --- BULLETPROOF SMOOTH SCROLL HANDLER ---
-// --- BULLETPROOF SMOOTH SCROLL HANDLER ---
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
       const targetId = href.replace("#", "");
 
-      // 1. Shout out to the PitchDeckWrapper to change slides (For Desktop)
+      // If we are NOT on the homepage, route to home first
+      if (pathname !== "/") {
+        router.push(`/${href}`);
+        setIsMobileMenuOpen(false);
+        return; 
+      }
+
+      // --- HOME PAGE LOGIC ---
       window.dispatchEvent(new CustomEvent('deckNavigate', { detail: targetId }));
 
-      // 2. Standard scrolling fallback (For Mobile, or sections outside the deck like Contact)
       setTimeout(() => {
         const elem = document.getElementById(targetId);
         if (elem) {
@@ -41,7 +50,7 @@ export default function Navbar() {
           const offsetPosition = elementPosition + window.scrollY - offset;
           window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
-      }, 50); // Tiny delay ensures the slide has time to mount before we scroll to it
+      }, 50);
 
       setIsMobileMenuOpen(false); 
     }
@@ -79,11 +88,9 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                /* Updated hover text to text-teal-dark for light mode legibility */
                 className="text-sm font-bold text-slate hover:text-teal-dark transition-colors relative group tracking-wide cursor-pointer"
               >
                 {link.name}
-                {/* Updated underline to bg-teal-dark */}
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-teal-dark transition-all duration-300 group-hover:w-full rounded-full"></span>
               </a>
             ))}
@@ -94,7 +101,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              /* Updated shadow RGB to 10QRX Electric Cyan */
+              /* Restored Original Cyan Glows & text-navy */
               className="inline-flex items-center px-6 py-2.5 bg-teal text-navy text-sm font-bold rounded-xl hover:bg-teal-light transition-all hover:-translate-y-0.5 shadow-[0_5px_15px_rgba(0,234,255,0.25)] hover:shadow-[0_8px_20px_rgba(0,234,255,0.4)] cursor-pointer"
             >
               Book a Demo
@@ -128,7 +135,6 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  /* Updated hover text to text-teal-dark */
                   className="block text-navy font-heading font-bold text-2xl hover:text-teal-dark transition-colors cursor-pointer"
                 >
                   {link.name}
@@ -138,6 +144,7 @@ export default function Navbar() {
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, "#contact")}
+                  /* Restored Original Cyan Glows & text-navy */
                   className="block w-full text-center px-6 py-4 bg-teal hover:bg-teal-light text-navy font-bold text-lg rounded-xl shadow-[0_5px_15px_rgba(0,234,255,0.25)] transition-all cursor-pointer"
                 >
                   Book a Demo
