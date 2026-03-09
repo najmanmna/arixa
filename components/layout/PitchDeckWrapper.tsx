@@ -11,6 +11,10 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const [direction, setDirection] = useState<1 | -1>(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  
+  // ── RESPONSIVE STATE (Safe for Next.js) ──
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to true to prevent server mismatch
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
@@ -20,28 +24,35 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const SCROLL_THRESHOLD = 40; 
   const EDGE_FORGIVENESS = 10; 
 
-  // ── FIX 1: FORCE SLIDE TO TOP ON INDEX CHANGE ──
+  // 1. Check screen size safely after mount
   useEffect(() => {
-    if (scrollableRef.current) {
+    setIsMounted(true);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 2. Scroll to top on index change
+  useEffect(() => {
+    if (!isMobile && scrollableRef.current) {
       scrollableRef.current.scrollTop = 0;
     }
-  }, [current]);
+  }, [current, isMobile]);
 
-  // ── FIX 2: SNAP WRAPPER TO VIEWPORT TOP ON ACTIVATION ──
+  // 3. Snap to Viewport
   useEffect(() => {
+    if (isMobile) return;
+
     if (isActive && wrapperRef.current) {
-      // This eliminates the "Gap" by ensuring the container is 100% aligned with the screen
       const wrapperTop = wrapperRef.current.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: wrapperTop,
-        behavior: "smooth" 
-      });
+      window.scrollTo({ top: wrapperTop, behavior: "smooth" });
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [isActive]);
+  }, [isActive, isMobile]);
 
   const goTo = useCallback((index: number, dir?: 1 | -1) => {
     if (isTransitioning || index < 0 || index >= totalSlides || index === current) return;
@@ -54,10 +65,12 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
   const next = useCallback(() => goTo(current + 1, 1), [current, goTo]);
   const prev = useCallback(() => goTo(current - 1, -1), [current, goTo]);
 
+  // 4. Observer
   useEffect(() => {
+    if (isMobile) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Trigger slightly earlier (0.6) so the smooth snap has time to finish
         if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
           setIsActive(true);
         }
@@ -66,12 +79,13 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
     );
     if (wrapperRef.current) observer.observe(wrapperRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
 
+  // 5. Scroll Hijacking logic
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!isActive) return;
+    if (isMobile || !isActive) return;
 
+    const handleWheel = (e: WheelEvent) => {
       const el = scrollableRef.current;
       if (!el) return;
 
@@ -101,7 +115,6 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
       }
       if (isGoingUp && current === 0) {
         setIsActive(false);
-        // Ensure we scroll back to the Metrics section perfectly
         window.scrollTo({ top: (wrapperRef.current?.offsetTop || 0) - 100, behavior: 'smooth' });
         return;
       }
@@ -121,15 +134,31 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isActive, isTransitioning, current, next, prev, totalSlides]);
+  }, [isActive, isTransitioning, current, next, prev, totalSlides, isMobile]);
 
+  // ════════════════════════════════════════════════════════
+  // ── RENDER PATH 1: MOBILE / FALLBACK ──
+  // ════════════════════════════════════════════════════════
+  if (!isMounted || isMobile) {
+    return (
+      <div className="w-full flex flex-col bg-[#E0F9FB] relative z-20">
+        {children}
+      </div>
+    );
+  }
+
+  // ════════════════════════════════════════════════════════
+  // ── RENDER PATH 2: DESKTOP PITCH DECK ──
+  // ════════════════════════════════════════════════════════
   return (
-    <div ref={wrapperRef} className="relative w-full h-screen bg-[#01021C] overflow-hidden">
+    <div ref={wrapperRef} className="relative w-full h-[100vh] bg-[#01021C] overflow-hidden">
+      
       {/* ── TOP PROGRESS BAR ── */}
-      <div className="fixed top-0 left-0 right-0 h-1 z-[110] bg-white/5">
+      <div className="absolute top-0 left-0 right-0 h-1 z-[110] bg-white/5">
         <motion.div 
           className="h-full bg-teal shadow-[0_0_10px_rgba(0,234,255,0.5)]"
           animate={{ width: `${((current + 1) / totalSlides) * 100}%` }}
+          transition={{ duration: 0.3 }}
         />
       </div>
 
@@ -140,22 +169,16 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
           variants={{
             enter: (d: number) => ({ y: d > 0 ? "100%" : "-100%", opacity: 0 }),
             center: { y: 0, opacity: 1 },
-            exit: (d: number) => ({ 
-              y: d > 0 ? "-20%" : "100%", 
-              opacity: d > 0 ? 0 : 1, 
-              scale: d > 0 ? 0.95 : 1 
-            })
+            exit: (d: number) => ({ y: d > 0 ? "-20%" : "100%", opacity: 0 })
           }}
           initial="enter"
           animate="center"
           exit="exit"
           onAnimationComplete={() => setIsTransitioning(false)}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 w-full h-full overflow-hidden"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 w-full h-full"
         >
-          {/* INTERNAL SCROLL CONTAINER 
-              We use flex and h-full to ensure sections snap to center 
-          */}
+          {/* INTERNAL SCROLL CONTAINER */}
           <div 
             ref={scrollableRef} 
             className="w-full h-full overflow-y-auto bg-white flex flex-col hide-scrollbar"
@@ -165,13 +188,16 @@ export default function PitchDeckWrapper({ children }: { children: React.ReactNo
         </motion.div>
       </AnimatePresence>
 
-      {/* ── NAVIGATION ── */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-[110] flex flex-col gap-4">
+      {/* ── NAVIGATION DOTS ── */}
+      <div className="absolute right-6 top-1/2 -translate-y-1/2 z-[110] flex flex-col gap-4">
         {sections.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-teal w-6 shadow-[0_0_8px_rgba(0,234,255,0.8)]" : "bg-white/20 hover:bg-white/40"}`}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              i === current ? "bg-teal w-6 shadow-[0_0_8px_rgba(0,234,255,0.8)]" : "bg-white/20 hover:bg-white/40"
+            }`}
           />
         ))}
       </div>
