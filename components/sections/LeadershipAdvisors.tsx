@@ -151,7 +151,7 @@ export default function LeadershipAdvisors() {
 
 
         {/* ================= ADVISORS SECTION ================= */}
-        <div className="text-center mb-16">
+        {/* <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy border border-navy shadow-sm mb-6"
@@ -166,9 +166,9 @@ export default function LeadershipAdvisors() {
           >
             Advisors
           </motion.h2>
-        </div>
+        </div> */}
 
-        <motion.div 
+        {/* <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -181,7 +181,7 @@ export default function LeadershipAdvisors() {
               variants={itemVariants}
               className="relative bg-white/60 backdrop-blur-xl border border-white rounded-[2rem] p-8 lg:p-10 hover:bg-white/80 hover:border-teal/30 hover:shadow-[0_20px_40px_-15px_rgba(0,165,168,0.15)] hover:-translate-y-1 hover:!opacity-100 group-hover/grid2:opacity-60 transition-all duration-500 group/card overflow-hidden flex flex-col"
             >
-              {/* Dynamic Top Accent Line */}
+         
               <div className="absolute top-0 left-0 w-0 h-1 bg-gradient-to-r from-teal-dark via-teal to-teal-dark group-hover/card:w-full transition-all duration-500 ease-out" />
 
               <motion.div 
@@ -190,7 +190,7 @@ export default function LeadershipAdvisors() {
               />
 
               <div className="relative z-10 mb-8 flex items-center gap-6 border-b border-slate-200/50 pb-8">
-                {/* Circular Headshot in High-Contrast Frame */}
+           
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-navy overflow-hidden relative border-2 border-white shadow-[0_4px_15px_rgba(0,0,0,0.1)] flex-shrink-0 group-hover/card:border-teal/40 transition-all duration-500">
                   <Image 
                     src={advisor.image} 
@@ -214,7 +214,7 @@ export default function LeadershipAdvisors() {
               </p>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
 
       </div>
     </section>
